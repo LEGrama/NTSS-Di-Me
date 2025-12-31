@@ -53,6 +53,29 @@ export async function POST(request: Request) {
     }
     console.log('스프레드시트 ID:', spreadsheetId);
 
+    // 중복 이메일 체크
+    console.log('기존 이메일 중복 확인 중...');
+    const checkResponse = await sheets.spreadsheets.values.get({
+      spreadsheetId,
+      range: 'Sheet1!A:D',
+    });
+
+    const existingRows = checkResponse.data.values;
+    if (existingRows && existingRows.length > 1) {
+      // 헤더 제외하고 이메일 확인
+      for (let i = 1; i < existingRows.length; i++) {
+        const row = existingRows[i];
+        if (row[2] && row[2].toLowerCase() === email.toLowerCase()) {
+          console.log('❌ 중복 이메일 발견:', email);
+          return NextResponse.json(
+            { error: '이미 등록된 이메일입니다.' },
+            { status: 400 }
+          );
+        }
+      }
+    }
+    console.log('✅ 중복 이메일 없음');
+
     // 현재 시간 (한국 시간)
     const now = new Date();
     const koreaTime = new Intl.DateTimeFormat('ko-KR', {
@@ -63,15 +86,15 @@ export async function POST(request: Request) {
 
     // Google Sheets에 데이터 추가
     console.log('Google Sheets에 데이터 추가 시도...');
-    console.log('Range:', 'Sheet1!A:C');
-    console.log('Data:', [koreaTime, name, email]);
+    console.log('Range:', 'Sheet1!A:D');
+    console.log('Data:', [koreaTime, name, email, '미완료']);
 
     await sheets.spreadsheets.values.append({
       spreadsheetId,
-      range: 'Sheet1!A:C', // Sheet1의 A, B, C 열에 데이터 추가
+      range: 'Sheet1!A:D', // Sheet1의 A, B, C, D 열에 데이터 추가
       valueInputOption: 'USER_ENTERED',
       requestBody: {
-        values: [[koreaTime, name, email]],
+        values: [[koreaTime, name, email, '미완료']],
       },
     });
 
