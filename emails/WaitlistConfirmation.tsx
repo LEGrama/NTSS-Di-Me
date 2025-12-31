@@ -79,7 +79,7 @@ const box = {
 };
 
 const h1 = {
-  color: '#000',
+  color: '#a60202',
   fontSize: '32px',
   fontWeight: 'bold',
   margin: '40px 0',
@@ -94,7 +94,7 @@ const text = {
 };
 
 const numberBox = {
-  backgroundColor: '#000',
+  backgroundColor: '#a60202',
   borderRadius: '4px',
   margin: '32px 0',
   padding: '32px',
@@ -102,12 +102,13 @@ const numberBox = {
 };
 
 const numberLabel = {
-  color: '#999',
+  color: '#fff',
   fontSize: '14px',
   fontWeight: '600',
   letterSpacing: '1px',
   margin: '0 0 8px',
   textTransform: 'uppercase' as const,
+  opacity: 0.7,
 };
 
 const number = {
@@ -118,9 +119,10 @@ const number = {
 };
 
 const totalText = {
-  color: '#999',
+  color: '#fff',
   fontSize: '14px',
   margin: '8px 0 0',
+  opacity: 0.7,
 };
 
 const hr = {

@@ -50,7 +50,7 @@ export default function WaitlistForm() {
         <div>
           <label
             htmlFor="name"
-            className="block text-sm font-semibold text-gray-400 mb-2 uppercase tracking-wider"
+            className="block text-sm font-semibold text-gray-600 mb-2 uppercase tracking-wider"
           >
             이름
           </label>
@@ -60,7 +60,7 @@ export default function WaitlistForm() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
-            className="w-full px-0 py-3 border-0 border-b-2 border-gray-600 focus:border-white outline-none transition bg-transparent font-medium text-lg text-white placeholder:text-gray-500"
+            className="w-full px-0 py-3 border-0 border-b-2 border-gray-300 focus:border-[#a60202] outline-none transition bg-transparent font-medium text-lg text-gray-900 placeholder:text-gray-400"
             placeholder="홍길동"
             disabled={isLoading}
           />
@@ -69,7 +69,7 @@ export default function WaitlistForm() {
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-semibold text-gray-400 mb-2 uppercase tracking-wider"
+            className="block text-sm font-semibold text-gray-600 mb-2 uppercase tracking-wider"
           >
             이메일
           </label>
@@ -79,7 +79,7 @@ export default function WaitlistForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full px-0 py-3 border-0 border-b-2 border-gray-600 focus:border-white outline-none transition bg-transparent font-medium text-lg text-white placeholder:text-gray-500"
+            className="w-full px-0 py-3 border-0 border-b-2 border-gray-300 focus:border-[#a60202] outline-none transition bg-transparent font-medium text-lg text-gray-900 placeholder:text-gray-400"
             placeholder="your@email.com"
             disabled={isLoading}
           />
@@ -88,7 +88,7 @@ export default function WaitlistForm() {
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-white hover:bg-gray-200 text-black font-bold text-lg py-4 px-6 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed mt-8 tracking-wide"
+          className="w-full bg-[#a60202] hover:bg-[#8a0101] text-white font-bold text-lg py-4 px-6 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed mt-8 tracking-wide"
         >
           {isLoading ? '등록 중...' : '대기명단 등록하기'}
         </button>
@@ -98,8 +98,8 @@ export default function WaitlistForm() {
         <div
           className={`mt-6 p-4 border-2 font-medium text-base ${
             message.type === 'success'
-              ? 'bg-black text-white border-white'
-              : 'bg-white text-black border-white'
+              ? 'bg-[#a60202] text-white border-[#a60202]'
+              : 'bg-white text-[#a60202] border-[#a60202]'
           }`}
         >
           {message.text}

@@ -117,7 +117,7 @@ export async function POST(request: Request) {
         const resend = new Resend(process.env.RESEND_API_KEY);
         console.log('이메일 발송 시도 중...');
 
-        await resend.emails.send({
+        const emailResult = await resend.emails.send({
           from: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
           to: email,
           subject: '대기명단 등록이 완료되었습니다!',
@@ -130,6 +130,7 @@ export async function POST(request: Request) {
         });
 
         console.log('✅ 이메일 발송 성공!');
+        console.log('이메일 발송 결과:', JSON.stringify(emailResult, null, 2));
       } catch (emailError) {
         console.error('❌ 이메일 발송 실패:', emailError);
         // 이메일 발송 실패해도 등록은 성공으로 처리
