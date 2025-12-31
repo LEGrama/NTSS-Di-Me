@@ -1,5 +1,7 @@
 import { google } from 'googleapis';
 import { NextResponse } from 'next/server';
+import { Resend } from 'resend';
+import WaitlistConfirmationEmail from '@/emails/WaitlistConfirmation';
 
 export async function POST(request: Request) {
   try {
@@ -99,6 +101,43 @@ export async function POST(request: Request) {
     });
 
     console.log('✅ 데이터 추가 성공!');
+
+    // 대기번호 계산 (완료 제외)
+    const allRows = existingRows || [];
+    const waitlistNumber = allRows.slice(1).filter(row => {
+      const status = row[3] || '미완료';
+      return status !== '완료';
+    }).length + 1; // 방금 추가한 사람 포함
+
+    const totalWaitlist = waitlistNumber;
+
+    // Resend로 이메일 발송
+    if (process.env.RESEND_API_KEY) {
+      try {
+        const resend = new Resend(process.env.RESEND_API_KEY);
+        console.log('이메일 발송 시도 중...');
+
+        await resend.emails.send({
+          from: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
+          to: email,
+          subject: '대기명단 등록이 완료되었습니다!',
+          react: WaitlistConfirmationEmail({
+            name,
+            waitlistNumber,
+            totalWaitlist,
+            registeredDate: koreaTime,
+          }),
+        });
+
+        console.log('✅ 이메일 발송 성공!');
+      } catch (emailError) {
+        console.error('❌ 이메일 발송 실패:', emailError);
+        // 이메일 발송 실패해도 등록은 성공으로 처리
+      }
+    } else {
+      console.log('⚠️ RESEND_API_KEY가 설정되지 않아 이메일을 발송하지 않습니다.');
+    }
+
     return NextResponse.json(
       { message: '대기명단에 성공적으로 등록되었습니다!' },
       { status: 200 }

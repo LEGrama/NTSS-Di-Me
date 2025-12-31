@@ -159,9 +159,26 @@ Google Sheets에서 직접 D열의 값을 수정하여 상태를 관리하세요
   - 3번째 등록자: 미완료 → 대기번호 2번
   - 4번째 등록자: 진행중 → 대기번호 3번
 
+## 이메일 자동 발송 (Resend)
+
+대기명단 등록 시 자동으로 확인 이메일을 발송하는 기능이 구현되어 있습니다.
+
+자세한 설정 방법은 [RESEND_SETUP.md](./RESEND_SETUP.md)를 참고하세요.
+
+### 간단 설정
+
+1. [Resend](https://resend.com)에서 계정 생성 및 API Key 발급
+2. `.env.local`에 환경 변수 추가:
+   ```bash
+   RESEND_API_KEY=re_xxxxxxxxxx
+   RESEND_FROM_EMAIL=onboarding@resend.dev
+   ```
+3. Vercel에도 동일한 환경 변수 추가
+4. 개발 서버 재시작
+
 ## 추가 기능 아이디어
 
-- 이메일 자동 응답 (SendGrid, Resend 등)
+- ~~이메일 자동 응답~~ (완료 - Resend 사용)
 - 관리자 대시보드
 - ~~중복 이메일 체크~~ (완료)
 - reCAPTCHA 추가
