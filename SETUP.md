@@ -35,15 +35,19 @@
 ## 5. Google Sheets 생성 및 설정
 
 1. [Google Sheets](https://sheets.google.com)에서 새 스프레드시트를 생성합니다
-2. 첫 번째 행에 헤더를 추가합니다:
+2. **중요: 시트 이름 변경**
+   - 스프레드시트 하단의 탭 이름이 "시트1"로 되어 있다면 "Sheet1"로 변경하세요
+   - 탭을 우클릭 > "이름 바꾸기" > "Sheet1" 입력
+   - 또는 코드에서 `Sheet1`을 `시트1`로 변경해도 됩니다
+3. 첫 번째 행에 헤더를 추가합니다:
    - A1: `등록 시간`
    - B1: `이름`
    - C1: `이메일`
-3. 스프레드시트 URL에서 ID를 복사합니다:
+4. 스프레드시트 URL에서 ID를 복사합니다:
    ```
    https://docs.google.com/spreadsheets/d/[여기가 SPREADSHEET_ID]/edit
    ```
-4. 스프레드시트를 서비스 계정과 공유합니다:
+5. 스프레드시트를 서비스 계정과 공유합니다:
    - "공유" 버튼 클릭
    - 다운로드한 JSON 파일의 `client_email` 값을 복사해서 추가
    - 권한을 "편집자"로 설정
@@ -51,8 +55,9 @@
 
 ## 6. 환경 변수 설정
 
-1. 프로젝트 루트에 `.env.local` 파일을 생성합니다
-2. 다운로드한 JSON 파일을 열어 다음 값을 복사합니다:
+1. 프로젝트 루트의 `.gitignore` 파일에 `.env*.local`이 포함되어 있는지 확인합니다
+2. 프로젝트 루트에 `.env.local` 파일을 생성합니다
+3. 다운로드한 JSON 파일을 열어 다음 값을 복사합니다:
 
 ```bash
 # Google Service Account 이메일
@@ -69,10 +74,14 @@ GOOGLE_SHEET_ID=your-spreadsheet-id-here
 - `GOOGLE_PRIVATE_KEY`는 따옴표로 감싸야 합니다
 - `\n`은 그대로 유지해야 합니다
 - JSON 파일의 `private_key` 값을 복사할 때 이스케이프 문자(`\n`)를 그대로 복사하세요
+- 코드에서는 자동으로 `replace(/\\n/g, '\n')`를 사용하여 실제 줄바꿈으로 변환합니다
 
-## 7. 로컬에서 실행하기
+## 7. 필수 패키지 설치 및 실행
 
 ```bash
+# 필수 패키지 설치 (이미 설치되어 있으면 생략 가능)
+npm install googleapis
+
 # 개발 서버 실행
 npm run dev
 ```
@@ -107,11 +116,27 @@ npm run dev
 - `GOOGLE_PRIVATE_KEY`에 따옴표가 있는지 확인
 - `\n` 이스케이프 문자가 유지되고 있는지 확인
 - JSON에서 복사한 전체 키 값이 포함되어 있는지 확인
+- Vercel 배포 시: 환경 변수에 입력할 때 `\n`을 그대로 입력하세요 (코드에서 자동 변환됨)
+
+**코드 확인:**
+API 라우트에서 Private Key를 다음과 같이 처리하는지 확인하세요:
+```javascript
+private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n')
+```
 
 ### 데이터가 저장되지 않는 경우
 - 스프레드시트 ID가 올바른지 확인
-- Sheet 이름이 `Sheet1`인지 확인 (또는 코드에서 수정)
-- 브라우저 콘솔과 서버 로그를 확인
+- **가장 흔한 원인: Sheet 이름 불일치**
+  - 스프레드시트 하단 탭 이름이 "Sheet1"인지 확인 (한국어 시트는 기본값이 "시트1"입니다)
+  - 코드의 범위 설정 (`Sheet1!A:C`)과 실제 시트 이름이 일치하는지 확인
+- Service Account 이메일이 스프레드시트에 "편집자" 권한으로 공유되었는지 확인
+- 브라우저 콘솔 (F12)과 서버 터미널 로그를 확인
+
+### "Range not found" 오류
+- 이 오류는 시트 이름이 일치하지 않을 때 발생합니다
+- 해결 방법:
+  1. 스프레드시트 하단 탭 이름을 "Sheet1"로 변경, 또는
+  2. 코드에서 `range: 'Sheet1!A:C'`를 `range: '시트1!A:C'`로 변경
 
 ## 추가 기능 아이디어
 
@@ -124,5 +149,15 @@ npm run dev
 ## 보안 주의사항
 
 - `.env.local` 파일은 절대 Git에 커밋하지 마세요
+- `.gitignore` 파일에 `.env*.local`이 포함되어 있는지 반드시 확인하세요
 - Service Account JSON 파일을 안전하게 보관하세요
 - 프로덕션 환경에서는 환경 변수를 Vercel/호스팅 서비스에 안전하게 저장하세요
+
+## API 권한 범위 (Scopes)
+
+코드에서 사용하는 Google API 권한:
+```javascript
+scopes: ['https://www.googleapis.com/auth/spreadsheets']
+```
+
+이 권한은 스프레드시트 읽기/쓰기를 허용합니다.

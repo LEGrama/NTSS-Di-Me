@@ -1,4 +1,5 @@
 import WaitlistForm from './components/WaitlistForm';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -58,6 +59,12 @@ export default function Home() {
 
           <div className="mt-10 text-center text-sm text-gray-400 font-normal">
             <p>이메일은 안전하게 보관되며, 마케팅 용도로만 사용됩니다.</p>
+            <Link
+              href="/check"
+              className="inline-block mt-4 text-white hover:underline font-medium"
+            >
+              내 대기번호 확인하기 →
+            </Link>
           </div>
         </section>
 
