@@ -74,7 +74,7 @@ export default function Home() {
 
         {/* 푸터 */}
         <footer className="mt-24 text-center text-white/50 text-xs font-normal">
-          <p>&copy; 2025 음식사진 촬영 & 디지털 메뉴판. All rights reserved.</p>
+          <p>&copy; 2025 NTSS Di Me</p>
         </footer>
       </div>
     </main>
