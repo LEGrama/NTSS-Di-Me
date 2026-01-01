@@ -14,57 +14,92 @@ interface MenuItem {
 }
 
 const menuItems: MenuItem[] = [
+  // 타코
   {
     id: 1,
-    name: '트러플 크림 파스타',
-    description: '신선한 트러플과 크림의 완벽한 조화',
-    price: '24,000',
-    image: '🍝',
-    category: '메인 디쉬',
+    name: '피쉬 타코',
+    description: '신선한 생선과 특제 소스가 어우러진 타코',
+    price: '12,000',
+    image: '/menu/fish-taco.jpg',
+    category: '타코',
   },
   {
     id: 2,
-    name: '안심 스테이크',
-    description: '부드러운 안심과 시그니처 소스',
-    price: '38,000',
-    image: '🥩',
-    category: '메인 디쉬',
+    name: '비프 타코',
+    description: '육즙 가득한 비프와 신선한 채소',
+    price: '13,000',
+    image: '/menu/beef-taco.jpg',
+    category: '타코',
   },
   {
     id: 3,
-    name: '랍스터 리조또',
-    description: '통통한 랍스터살과 크리미한 리조또',
-    price: '42,000',
-    image: '🦞',
-    category: '메인 디쉬',
+    name: '포크 타코',
+    description: '부드러운 포크와 매콤한 소스의 조화',
+    price: '12,000',
+    image: '/menu/pork-taco.jpg',
+    category: '타코',
   },
   {
     id: 4,
-    name: '시저 샐러드',
-    description: '신선한 로메인과 파마산 치즈',
-    price: '16,000',
-    image: '🥗',
-    category: '애피타이저',
+    name: '치킨 타코',
+    description: '그릴에 구운 치킨과 아보카도 크림',
+    price: '11,000',
+    image: '/menu/chicken-taco.jpg',
+    category: '타코',
   },
+  // 퀘사디아
   {
     id: 5,
-    name: '브루스케타',
-    description: '토마토와 바질의 클래식한 조합',
-    price: '14,000',
-    image: '🍞',
-    category: '애피타이저',
+    name: '비프 퀘사디아',
+    description: '치즈와 비프가 가득한 따끈한 퀘사디아',
+    price: '15,000',
+    image: '/menu/beef-quesadilla.jpg',
+    category: '퀘사디아',
   },
   {
     id: 6,
-    name: '티라미수',
-    description: '에스프레소 향이 가득한 이탈리안 디저트',
-    price: '12,000',
-    image: '🍰',
-    category: '디저트',
+    name: '치킨 퀘사디아',
+    description: '그릴 치킨과 녹인 치즈의 완벽한 조합',
+    price: '14,000',
+    image: '/menu/chicken-quesadilla.jpg',
+    category: '퀘사디아',
+  },
+  {
+    id: 7,
+    name: '포크 퀘사디아',
+    description: '풀드 포크와 멜팅 치즈의 환상 조합',
+    price: '14,000',
+    image: '/menu/pork-quesadilla.jpg',
+    category: '퀘사디아',
+  },
+  // 사이드
+  {
+    id: 8,
+    name: '칠리 치즈 프라이즈',
+    description: '바삭한 감자튀김에 칠리와 치즈 토핑',
+    price: '8,000',
+    image: '/menu/chili-cheese-fries.jpg',
+    category: '사이드',
+  },
+  {
+    id: 9,
+    name: '과카몰리와 칩스',
+    description: '신선한 아보카도 과카몰리와 또르띠야 칩스',
+    price: '9,000',
+    image: '/menu/guacamole-chips.jpg',
+    category: '사이드',
+  },
+  {
+    id: 10,
+    name: '프레시 치킨 윙즈',
+    description: '겉은 바삭 속은 촉촉한 치킨 윙즈',
+    price: '10,000',
+    image: '/menu/chicken-wings.jpg',
+    category: '사이드',
   },
 ];
 
-const categories = ['전체', '메인 디쉬', '애피타이저', '디저트'];
+const categories = ['전체', '타코', '퀘사디아', '사이드'];
 
 export default function MenuDemoPage() {
   const [selectedCategory, setSelectedCategory] = useState('전체');
@@ -79,7 +114,7 @@ export default function MenuDemoPage() {
     <main className="min-h-screen bg-[#a60202]">
       {/* 홈 아이콘 */}
       <Link href="/" className="fixed top-6 left-6 z-50 hover:opacity-80 transition">
-        <Image src="/icon.jpeg" alt="NTSS Home" width={48} height={48} className="rounded-lg object-cover w-12 h-12" />
+        <Image src="/ntss.svg" alt="NTSS Home" width={48} height={48} className="rounded-lg w-12 h-12" />
       </Link>
 
       <div className="container mx-auto px-4 py-12">
@@ -125,7 +160,14 @@ export default function MenuDemoPage() {
                 onClick={() => setSelectedItem(item)}
                 className="bg-white p-6 cursor-pointer hover:scale-105 hover:shadow-2xl transition-all duration-200 border-2 border-white"
               >
-                <div className="text-6xl mb-4 text-center">{item.image}</div>
+                <div className="relative w-full h-40 mb-4 bg-gray-100">
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
                 <h3 className="text-xl font-bold text-[#a60202] mb-2">
                   {item.name}
                 </h3>
@@ -158,8 +200,13 @@ export default function MenuDemoPage() {
                 >
                   ×
                 </button>
-                <div className="text-8xl mb-6 text-center">
-                  {selectedItem.image}
+                <div className="relative w-full h-64 mb-6 bg-gray-100">
+                  <Image
+                    src={selectedItem.image}
+                    alt={selectedItem.name}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
                 <h2 className="text-3xl font-bold text-[#a60202] mb-3">
                   {selectedItem.name}

@@ -49,7 +49,7 @@ export default function CheckPage() {
     <main className="min-h-screen bg-[#a60202]">
       {/* 홈 아이콘 */}
       <Link href="/" className="fixed top-6 left-6 z-50 hover:opacity-80 transition">
-        <Image src="/icon.jpeg" alt="NTSS Home" width={48} height={48} className="rounded-lg object-cover w-12 h-12" />
+        <Image src="/ntss.svg" alt="NTSS Home" width={48} height={48} className="rounded-lg w-12 h-12" />
       </Link>
 
       <div className="container mx-auto px-4 py-20">
