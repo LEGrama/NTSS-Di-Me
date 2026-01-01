@@ -31,16 +31,17 @@ export default function Home() {
               About NTSS
             </h2>
             <div className="space-y-6 text-white/80 text-lg leading-relaxed">
-              <p>
-                NTSS는 소상공인과 중소 브랜드의 성장을 돕는 브랜딩 & 마케팅 파트너입니다.
+              <p className="text-xl font-semibold text-white/90 italic">
+                *브랜드로 거듭나기*
+              </p>
+              <p className="text-base text-white/70">
+                작지 만은 않은 소상공인 & 스몰브랜더를 위한 연구매거진
               </p>
               <p>
-                대기업처럼 큰 예산이 없어도, 전문 마케팅 팀이 없어도,
-                여러분의 브랜드가 빛날 수 있도록 실질적인 인사이트와 솔루션을 제공합니다.
+                낫쏘스몰브랜딩랩은 소상공인분들과 스몰브랜더들이 상생하고 같이 성장하길 바라는 마음으로 운영하고 있습니다.
               </p>
               <p>
-                우리는 단순히 서비스를 제공하는 것이 아니라,
-                여러분의 브랜드 스토리를 함께 만들어갑니다.
+                서로가 경쟁자가 아니라 서로 응원하는 사이라 생각하며, 따뜻하고 발전하는 커뮤니티를 만드는 것이 목표입니다.
               </p>
             </div>
           </div>
