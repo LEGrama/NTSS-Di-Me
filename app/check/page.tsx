@@ -44,31 +44,31 @@ export default function CheckPage() {
   };
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-[#a60202]">
       <div className="container mx-auto px-4 py-20">
         <div className="max-w-2xl mx-auto">
           <Link
             href="/"
-            className="inline-block text-gray-600 hover:text-[#a60202] mb-8 transition"
+            className="inline-block text-white/70 hover:text-white mb-8 transition"
           >
             ← 홈으로 돌아가기
           </Link>
 
           <header className="text-center mb-16">
-            <h1 className="text-5xl md:text-6xl font-bold text-[#a60202] mb-4 tracking-tight">
+            <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 tracking-tight">
               대기번호 조회
             </h1>
-            <p className="text-gray-600 font-medium">
+            <p className="text-white/80 font-medium">
               등록하신 이메일을 입력하시면 대기번호를 확인하실 수 있습니다
             </p>
           </header>
 
-          <div className="border-2 border-[#a60202] p-12 md:p-16">
+          <div className="border-2 border-white p-12 md:p-16">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-semibold text-gray-600 mb-2 uppercase tracking-wider"
+                  className="block text-sm font-semibold text-white/70 mb-2 uppercase tracking-wider"
                 >
                   이메일
                 </label>
@@ -78,7 +78,7 @@ export default function CheckPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full px-0 py-3 border-0 border-b-2 border-gray-300 focus:border-[#a60202] outline-none transition bg-transparent font-medium text-lg text-gray-900 placeholder:text-gray-400"
+                  className="w-full px-0 py-3 border-0 border-b-2 border-white/30 focus:border-white outline-none transition bg-transparent font-medium text-lg text-white placeholder:text-white/40"
                   placeholder="your@email.com"
                   disabled={isLoading}
                 />
@@ -87,30 +87,30 @@ export default function CheckPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-[#a60202] hover:bg-[#8a0101] text-white font-bold text-lg py-4 px-6 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed mt-8 tracking-wide"
+                className="w-full bg-white hover:bg-gray-100 text-[#a60202] font-bold text-lg py-4 px-6 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed mt-8 tracking-wide"
               >
                 {isLoading ? '조회 중...' : '대기번호 조회하기'}
               </button>
             </form>
 
             {error && (
-              <div className="mt-6 p-4 border-2 border-[#a60202] bg-white text-[#a60202] font-medium text-base">
+              <div className="mt-6 p-4 border-2 border-white bg-[#a60202] text-white font-medium text-base">
                 {error}
               </div>
             )}
 
             {result && (
-              <div className="mt-6 p-8 border-2 border-[#a60202] bg-[#a60202] text-white">
+              <div className="mt-6 p-8 border-2 border-white bg-white text-[#a60202]">
                 <div className="text-center">
-                  <p className="text-white/70 text-sm font-semibold uppercase tracking-wider mb-2">
+                  <p className="text-[#a60202]/70 text-sm font-semibold uppercase tracking-wider mb-2">
                     {result.name}님의 대기번호
                   </p>
                   <p className="text-6xl font-bold mb-4">{result.waitlistNumber}번</p>
-                  <div className="w-16 h-px bg-white mx-auto mb-4"></div>
-                  <p className="text-white/70 text-sm">
+                  <div className="w-16 h-px bg-[#a60202] mx-auto mb-4"></div>
+                  <p className="text-[#a60202]/70 text-sm">
                     전체 대기자: {result.totalWaitlist}명
                   </p>
-                  <p className="text-white/50 text-xs mt-2">
+                  <p className="text-[#a60202]/50 text-xs mt-2">
                     등록일시: {result.registeredDate}
                   </p>
                 </div>
@@ -118,9 +118,9 @@ export default function CheckPage() {
             )}
           </div>
 
-          <div className="mt-8 text-center text-sm text-gray-600">
+          <div className="mt-8 text-center text-sm text-white/70">
             <p>대기명단에 등록하지 않으셨나요?</p>
-            <Link href="/" className="text-[#a60202] hover:underline mt-2 inline-block">
+            <Link href="/" className="text-white hover:underline mt-2 inline-block">
               지금 등록하기 →
             </Link>
           </div>
