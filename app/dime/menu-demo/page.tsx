@@ -79,10 +79,10 @@ export default function MenuDemoPage() {
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-6xl mx-auto">
           <Link
-            href="/"
+            href="/dime"
             className="inline-block text-white/70 hover:text-white mb-8 transition"
           >
-            ← 홈으로 돌아가기
+            ← Di Me로 돌아가기
           </Link>
 
           <header className="text-center mb-12">
@@ -189,7 +189,7 @@ export default function MenuDemoPage() {
               활용하여 완전히 커스터마이징된 디지털 메뉴판을 제작해드립니다.
             </p>
             <Link
-              href="/"
+              href="/dime"
               className="inline-block bg-white hover:bg-gray-100 hover:scale-105 hover:shadow-lg text-[#a60202] font-bold text-lg py-4 px-8 transition-all duration-200"
             >
               대기명단 등록하기

@@ -49,10 +49,10 @@ export default function CheckPage() {
       <div className="container mx-auto px-4 py-20">
         <div className="max-w-2xl mx-auto">
           <Link
-            href="/"
+            href="/dime"
             className="inline-block text-white/70 hover:text-white mb-8 transition"
           >
-            ← 홈으로 돌아가기
+            ← Di Me로 돌아가기
           </Link>
 
           <header className="text-center mb-16">
@@ -128,7 +128,7 @@ export default function CheckPage() {
 
           <div className="mt-8 text-center text-sm text-white/70">
             <p>대기명단에 등록하지 않으셨나요?</p>
-            <Link href="/" className="text-white hover:underline mt-2 inline-block">
+            <Link href="/dime" className="text-white hover:underline mt-2 inline-block">
               지금 등록하기 →
             </Link>
           </div>
