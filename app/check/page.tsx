@@ -87,7 +87,7 @@ export default function CheckPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-white hover:bg-gray-100 text-[#a60202] font-bold text-lg py-4 px-6 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed mt-8 tracking-wide"
+                className="w-full bg-white hover:bg-gray-100 hover:scale-105 hover:shadow-lg text-[#a60202] font-bold text-lg py-4 px-6 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none mt-8 tracking-wide"
               >
                 {isLoading ? '조회 중...' : '대기번호 조회하기'}
               </button>

@@ -9,12 +9,11 @@ export default function Home() {
         {/* 헤더 */}
         <header className="text-center mb-24 max-w-4xl mx-auto">
           <h1 className="text-6xl md:text-7xl font-bold text-white mb-6 tracking-tight">
-            음식사진 촬영 &<br />디지털 메뉴판 제작
+            NTSS Di Me
           </h1>
           <div className="w-16 h-px bg-white mx-auto mb-6"></div>
           <p className="text-xl text-white/90 max-w-2xl mx-auto font-medium leading-relaxed">
-            전문 포토그래퍼가 찍는 고퀄리티 음식 사진과<br />
-            매출을 높이는 디지털 메뉴판을 만나보세요
+            F&B 전문 비주얼 브랜딩 스튜디오
           </p>
         </header>
 
