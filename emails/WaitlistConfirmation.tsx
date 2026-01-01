@@ -30,7 +30,7 @@ export default function WaitlistConfirmationEmail({
               안녕하세요, <strong>{name}</strong>님!
             </Text>
             <Text style={text}>
-              NTSS Di Me 얼리버드 대기명단에 성공적으로 등록되었습니다.
+              NTSS Di Me 대기명단에 성공적으로 등록되었습니다.
             </Text>
 
             <Section style={confirmBox}>
@@ -43,7 +43,7 @@ export default function WaitlistConfirmationEmail({
             <Hr style={hr} />
 
             <Text style={text}>
-              서비스 오픈 시 특별 혜택과 함께 우선적으로 안내해 드리겠습니다.
+              궁금한 사항이나 문의 사항이 있으면 ntsslab@gmail.com으로 연락주세요.
             </Text>
             <Text style={footer}>
               이메일은 안전하게 보관되며, 마케팅 용도로만 사용됩니다.

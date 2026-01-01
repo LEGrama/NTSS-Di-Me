@@ -69,7 +69,7 @@ export default function Home() {
                 음식의 매력을 극대화하는 전문 촬영과 디지털 메뉴판 제작 서비스
               </p>
               <div className="mt-6 inline-block text-white/80 group-hover:text-white font-semibold text-sm">
-                얼리버드 대기명단 등록하기
+                대기명단 등록하기
               </div>
             </Link>
 
@@ -97,7 +97,7 @@ export default function Home() {
               함께 성장하고 싶으신가요?
             </h2>
             <p className="text-white/80 mb-8 leading-relaxed">
-              NTSS Di Me 얼리버드 대기명단에 등록하시고,<br />
+              NTSS Di Me 대기명단에 등록하시고,<br />
               특별 혜택과 함께 시작하세요
             </p>
             <Link
