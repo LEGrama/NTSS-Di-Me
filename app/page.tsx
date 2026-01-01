@@ -58,12 +58,21 @@ export default function Home() {
 
           <div className="mt-10 text-center text-sm text-white/70 font-normal">
             <p>이메일은 안전하게 보관되며, 마케팅 용도로만 사용됩니다.</p>
-            <Link
-              href="/check"
-              className="inline-block mt-4 text-white hover:underline font-medium"
-            >
-              내 대기번호 확인하기 →
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center mt-4">
+              <Link
+                href="/menu-demo"
+                className="inline-block text-white hover:underline font-medium"
+              >
+                디지털 메뉴판 데모 보기 →
+              </Link>
+              <span className="hidden sm:inline text-white/50">|</span>
+              <Link
+                href="/check"
+                className="inline-block text-white hover:underline font-medium"
+              >
+                내 대기번호 확인하기 →
+              </Link>
+            </div>
           </div>
         </section>
 
