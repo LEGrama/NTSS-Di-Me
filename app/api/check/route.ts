@@ -63,6 +63,7 @@ export async function POST(request: Request) {
     let waitlistNumber = 0;
     let foundName = '';
     let foundDate = '';
+    let foundStatus = '';
     let currentNumber = 0; // "완료"를 제외한 실제 대기번호
 
     for (let i = 1; i < rows.length; i++) {
@@ -78,13 +79,18 @@ export async function POST(request: Request) {
       if (row[2] && row[2].toLowerCase() === email.toLowerCase()) {
         foundDate = row[0] || '';
         foundName = row[1] || '';
+        foundStatus = status;
 
-        // 해당 사용자가 "완료" 상태인 경우
+        // 해당 사용자가 "완료" 상태인 경우도 정보 반환
         if (status === '완료') {
-          return NextResponse.json(
-            { error: '이미 완료 처리된 대기명단입니다.' },
-            { status: 404 }
-          );
+          console.log(`✅ 상태 조회 성공: ${foundName} - 완료`);
+          return NextResponse.json({
+            waitlistNumber: 0,
+            name: foundName,
+            registeredDate: foundDate,
+            totalWaitlist: 0,
+            status: '완료',
+          });
         }
 
         waitlistNumber = currentNumber;
@@ -92,7 +98,7 @@ export async function POST(request: Request) {
       }
     }
 
-    if (waitlistNumber === 0) {
+    if (waitlistNumber === 0 && !foundStatus) {
       return NextResponse.json(
         { error: '해당 이메일로 등록된 대기명단을 찾을 수 없습니다.' },
         { status: 404 }
@@ -105,12 +111,13 @@ export async function POST(request: Request) {
       return status !== '완료';
     }).length;
 
-    console.log(`✅ 대기번호 조회 성공: ${waitlistNumber}번 (전체 대기자: ${totalWaitlist}명)`);
+    console.log(`✅ 상태 조회 성공: ${foundName} - ${foundStatus} (대기번호: ${waitlistNumber}번)`);
     return NextResponse.json({
       waitlistNumber,
       name: foundName,
       registeredDate: foundDate,
       totalWaitlist,
+      status: foundStatus,
     });
   } catch (error) {
     console.error('❌ Check API Error:', error);

@@ -11,6 +11,7 @@ export default function CheckPage() {
     name: string;
     registeredDate: string;
     totalWaitlist: number;
+    status: string;
   } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -103,13 +104,20 @@ export default function CheckPage() {
               <div className="mt-6 p-8 border-2 border-white bg-white text-[#a60202]">
                 <div className="text-center">
                   <p className="text-[#a60202]/70 text-sm font-semibold uppercase tracking-wider mb-2">
-                    {result.name}님의 대기번호
+                    {result.name}님의 현재 상태
                   </p>
-                  <p className="text-6xl font-bold mb-4">{result.waitlistNumber}번</p>
+                  <p className="text-6xl font-bold mb-4">
+                    {result.status === '미완료' ? '대기 중' : result.status === '진행중' ? '진행 중' : '완료'}
+                  </p>
                   <div className="w-16 h-px bg-[#a60202] mx-auto mb-4"></div>
+                  {/* 대기번호 주석 처리 - 필요시 주석 해제하여 사용 가능
+                  <p className="text-[#a60202]/70 text-sm">
+                    대기번호: {result.waitlistNumber}번
+                  </p>
                   <p className="text-[#a60202]/70 text-sm">
                     전체 대기자: {result.totalWaitlist}명
                   </p>
+                  */}
                   <p className="text-[#a60202]/50 text-xs mt-2">
                     등록일시: {result.registeredDate}
                   </p>
