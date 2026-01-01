@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function CheckPage() {
   const [email, setEmail] = useState('');
@@ -46,13 +47,18 @@ export default function CheckPage() {
 
   return (
     <main className="min-h-screen bg-[#a60202]">
+      {/* 홈 아이콘 */}
+      <Link href="/" className="fixed top-6 left-6 z-50 hover:opacity-80 transition">
+        <Image src="/icon.jpeg" alt="NTSS Home" width={48} height={48} className="rounded-lg object-cover w-12 h-12" />
+      </Link>
+
       <div className="container mx-auto px-4 py-20">
         <div className="max-w-2xl mx-auto">
           <Link
             href="/dime"
             className="inline-block text-white/70 hover:text-white mb-8 transition"
           >
-            ← Di Me로 돌아가기
+            ← NTSS Di Me로 돌아가기
           </Link>
 
           <header className="text-center mb-16">

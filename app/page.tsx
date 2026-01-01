@@ -1,9 +1,15 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#a60202] transition-colors">
       <div className="container mx-auto px-4 py-20">
+        {/* 홈 아이콘 */}
+        <Link href="/" className="fixed top-6 left-6 z-50 hover:opacity-80 transition">
+          <Image src="/icon.jpeg" alt="NTSS Home" width={48} height={48} className="rounded-lg object-cover w-12 h-12" />
+        </Link>
+
         {/* 헤더 */}
         <header className="text-center mb-32 max-w-4xl mx-auto">
           <h1 className="text-7xl md:text-8xl font-bold text-white mb-8 tracking-tight">
@@ -52,7 +58,7 @@ export default function Home() {
             >
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-2xl font-bold text-white tracking-tight">
-                  Di Me
+                  NTSS Di Me
                 </h3>
                 <span className="text-white/70 group-hover:text-white transition">→</span>
               </div>
@@ -98,7 +104,7 @@ export default function Home() {
               href="/dime"
               className="inline-block bg-white hover:bg-gray-100 hover:scale-105 hover:shadow-lg text-[#a60202] font-bold text-lg py-4 px-12 transition-all duration-200"
             >
-              Di Me 대기명단 등록하기
+              NTSS Di Me 대기명단 등록하기
             </Link>
           </div>
         </section>
