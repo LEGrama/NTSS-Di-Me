@@ -47,18 +47,14 @@ export default function Home() {
         <section className="border-2 border-white p-12 md:p-16 max-w-2xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-4xl font-bold text-white mb-4 tracking-tight">
-              얼리버드 대기명단
+              JOIN THE WAITLIST
             </h2>
-            <p className="text-white/80 font-medium">
-              서비스 오픈 시 특별 혜택을 받으실 수 있습니다
-            </p>
           </div>
 
           <WaitlistForm />
 
           <div className="mt-10 text-center text-sm text-white/70 font-normal">
-            <p>이메일은 안전하게 보관되며, 마케팅 용도로만 사용됩니다.</p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center mt-4">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
                 href="/menu-demo"
                 className="inline-block text-white hover:underline font-medium"

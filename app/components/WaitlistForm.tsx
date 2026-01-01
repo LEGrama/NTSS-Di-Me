@@ -5,6 +5,7 @@ import { useState, FormEvent } from 'react';
 export default function WaitlistForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [agreedToPrivacy, setAgreedToPrivacy] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<{
     type: 'success' | 'error';
@@ -13,6 +14,15 @@ export default function WaitlistForm() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!agreedToPrivacy) {
+      setMessage({
+        type: 'error',
+        text: '개인정보 수집·이용에 동의해주세요.',
+      });
+      return;
+    }
+
     setIsLoading(true);
     setMessage(null);
 
@@ -31,6 +41,7 @@ export default function WaitlistForm() {
         setMessage({ type: 'success', text: data.message });
         setName('');
         setEmail('');
+        setAgreedToPrivacy(false);
       } else {
         setMessage({ type: 'error', text: data.error });
       }
@@ -83,6 +94,25 @@ export default function WaitlistForm() {
             placeholder="your@email.com"
             disabled={isLoading}
           />
+        </div>
+
+        <div className="mt-6">
+          <label className="flex items-start cursor-pointer group">
+            <input
+              type="checkbox"
+              checked={agreedToPrivacy}
+              onChange={(e) => setAgreedToPrivacy(e.target.checked)}
+              disabled={isLoading}
+              className="mt-1 w-4 h-4 text-white bg-transparent border-2 border-white/30 rounded focus:ring-white focus:ring-2 cursor-pointer disabled:opacity-50"
+            />
+            <span className="ml-3 text-sm text-white/80 leading-relaxed">
+              <strong className="text-white">(필수)</strong> 개인정보 수집·이용에 동의합니다.
+              <br />
+              <span className="text-xs text-white/60">
+                수집항목: 이름, 이메일 | 이용목적: 서비스 안내 및 마케팅 | 보유기간: 서비스 종료 시까지
+              </span>
+            </span>
+          </label>
         </div>
 
         <button
