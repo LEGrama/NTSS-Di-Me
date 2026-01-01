@@ -17,7 +17,7 @@ export default function Home() {
           </h1>
           <div className="w-24 h-px bg-white mx-auto mb-8"></div>
           <p className="text-2xl text-white/90 max-w-3xl mx-auto font-medium leading-relaxed mb-4">
-            소상공인을 위한 브랜딩 마케팅 인사이트
+            소상공인을 위한 브랜딩 연구소
           </p>
           <p className="text-lg text-white/70 max-w-2xl mx-auto font-normal leading-relaxed">
             작은 브랜드가 큰 꿈을 이루도록, NTSS가 함께합니다
@@ -31,17 +31,11 @@ export default function Home() {
               About NTSS
             </h2>
             <div className="space-y-6 text-white/80 text-lg leading-relaxed">
-              <p className="text-xl font-semibold text-white/90 italic">
-                *브랜드로 거듭나기*
-              </p>
-              <p className="text-base text-white/70">
-                작지 만은 않은 소상공인 & 스몰브랜더를 위한 연구매거진
+              <p>
+                NTSS는 ‘Not So Small’의 약자로 소상공인이 브랜드로 성장하는 것을 도모하는 커뮤니티입니다. 
               </p>
               <p>
-                낫쏘스몰브랜딩랩은 소상공인분들과 스몰브랜더들이 상생하고 같이 성장하길 바라는 마음으로 운영하고 있습니다.
-              </p>
-              <p>
-                서로가 경쟁자가 아니라 서로 응원하는 사이라 생각하며, 따뜻하고 발전하는 커뮤니티를 만드는 것이 목표입니다.
+                NTSS의 연구매거진 &lt;낫쏘스몰브랜딩랩&gt;은 매주 화・목・토 인스타그램에 업로드됩니다. 팔로우하고, 브랜딩 전략, 최신 트렌드 이슈, 비즈니스 스토리 등 전사업을 아우르는 인사이트를 키워가세요.
               </p>
             </div>
           </div>
