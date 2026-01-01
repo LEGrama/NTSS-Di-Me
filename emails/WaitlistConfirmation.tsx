@@ -11,15 +11,11 @@ import {
 
 interface WaitlistConfirmationEmailProps {
   name: string;
-  waitlistNumber: number;
-  totalWaitlist: number;
   registeredDate: string;
 }
 
 export default function WaitlistConfirmationEmail({
   name,
-  waitlistNumber,
-  totalWaitlist,
   registeredDate,
 }: WaitlistConfirmationEmailProps) {
   return (
@@ -34,14 +30,12 @@ export default function WaitlistConfirmationEmail({
               안녕하세요, <strong>{name}</strong>님!
             </Text>
             <Text style={text}>
-              음식사진 촬영 & 디지털 메뉴판 서비스 대기명단에 성공적으로
-              등록되었습니다.
+              NTSS Di Me 얼리버드 대기명단에 성공적으로 등록되었습니다.
             </Text>
 
-            <Section style={numberBox}>
-              <Text style={numberLabel}>귀하의 대기번호</Text>
-              <Heading style={number}>{waitlistNumber}번</Heading>
-              <Text style={totalText}>전체 대기자: {totalWaitlist}명</Text>
+            <Section style={confirmBox}>
+              <Text style={confirmLabel}>등록 완료</Text>
+              <Heading style={confirmIcon}>✓</Heading>
             </Section>
 
             <Text style={text}>등록 일시: {registeredDate}</Text>
@@ -93,7 +87,7 @@ const text = {
   lineHeight: '26px',
 };
 
-const numberBox = {
+const confirmBox = {
   backgroundColor: '#a60202',
   borderRadius: '4px',
   margin: '32px 0',
@@ -101,7 +95,7 @@ const numberBox = {
   textAlign: 'center' as const,
 };
 
-const numberLabel = {
+const confirmLabel = {
   color: '#fff',
   fontSize: '14px',
   fontWeight: '600',
@@ -111,18 +105,11 @@ const numberLabel = {
   opacity: 0.7,
 };
 
-const number = {
+const confirmIcon = {
   color: '#fff',
   fontSize: '48px',
   fontWeight: 'bold',
   margin: '8px 0',
-};
-
-const totalText = {
-  color: '#fff',
-  fontSize: '14px',
-  margin: '8px 0 0',
-  opacity: 0.7,
 };
 
 const hr = {

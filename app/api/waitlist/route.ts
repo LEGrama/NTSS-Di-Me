@@ -102,15 +102,6 @@ export async function POST(request: Request) {
 
     console.log('✅ 데이터 추가 성공!');
 
-    // 대기번호 계산 (완료 제외)
-    const allRows = existingRows || [];
-    const waitlistNumber = allRows.slice(1).filter(row => {
-      const status = row[3] || '미완료';
-      return status !== '완료';
-    }).length + 1; // 방금 추가한 사람 포함
-
-    const totalWaitlist = waitlistNumber;
-
     // Resend로 이메일 발송
     if (process.env.RESEND_API_KEY) {
       try {
@@ -123,8 +114,6 @@ export async function POST(request: Request) {
           subject: '대기명단 등록이 완료되었습니다!',
           react: WaitlistConfirmationEmail({
             name,
-            waitlistNumber,
-            totalWaitlist,
             registeredDate: koreaTime,
           }),
         });
