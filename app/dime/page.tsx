@@ -41,9 +41,9 @@ export default function Home() {
           </div>
 
           <div className="bg-[#a60202] p-10 hover:bg-[#8a0101] transition-colors">
-            <h3 className="text-2xl font-bold mb-4 text-white tracking-tight">빠른 작업</h3>
+            <h3 className="text-2xl font-bold mb-4 text-white tracking-tight">브랜딩</h3>
             <p className="text-white/80 font-medium leading-relaxed">
-              촬영부터 메뉴판 제작까지 신속하고 효율적인 프로세스
+              브랜드 일관성 유지와 더 나은 고객 경험을 통한 브랜딩 서비스
             </p>
           </div>
         </section>
