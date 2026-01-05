@@ -10,7 +10,7 @@ interface MenuItem {
   description: { ko: string; en: string };
   price: string;
   image: string;
-  category: string;
+  category: { ko: string; en: string };
   spicyLevel: number; // 0: 안맵게, 1: 순한맛, 2: 보통, 3: 매운맛, 4: 아주매운맛
 }
 
@@ -22,7 +22,7 @@ const menuItems: MenuItem[] = [
     description: { ko: '신선한 생선과 특제 소스가 어우러진 타코', en: 'Fresh fish with special sauce in a soft tortilla' },
     price: '12,000',
     image: '/menu/fish-taco.jpg',
-    category: '타코',
+    category: { ko: '타코', en: 'Tacos' },
     spicyLevel: 1,
   },
   {
@@ -31,7 +31,7 @@ const menuItems: MenuItem[] = [
     description: { ko: '육즙 가득한 비프와 신선한 채소', en: 'Juicy beef with fresh vegetables' },
     price: '13,000',
     image: '/menu/beef-taco.jpg',
-    category: '타코',
+    category: { ko: '타코', en: 'Tacos' },
     spicyLevel: 2,
   },
   {
@@ -40,7 +40,7 @@ const menuItems: MenuItem[] = [
     description: { ko: '부드러운 포크와 매콤한 소스의 조화', en: 'Tender pork with spicy sauce' },
     price: '12,000',
     image: '/menu/pork-taco.jpg',
-    category: '타코',
+    category: { ko: '타코', en: 'Tacos' },
     spicyLevel: 3,
   },
   {
@@ -49,7 +49,7 @@ const menuItems: MenuItem[] = [
     description: { ko: '그릴에 구운 치킨과 아보카도 크림', en: 'Grilled chicken with avocado cream' },
     price: '11,000',
     image: '/menu/chicken-taco.jpg',
-    category: '타코',
+    category: { ko: '타코', en: 'Tacos' },
     spicyLevel: 0,
   },
   // 퀘사디아
@@ -59,7 +59,7 @@ const menuItems: MenuItem[] = [
     description: { ko: '치즈와 비프가 가득한 따끈한 퀘사디아', en: 'Warm quesadilla filled with cheese and beef' },
     price: '15,000',
     image: '/menu/beef-quesadilla.jpg',
-    category: '퀘사디아',
+    category: { ko: '퀘사디아', en: 'Quesadillas' },
     spicyLevel: 1,
   },
   {
@@ -68,7 +68,7 @@ const menuItems: MenuItem[] = [
     description: { ko: '그릴 치킨과 녹인 치즈의 완벽한 조합', en: 'Perfect combination of grilled chicken and melted cheese' },
     price: '14,000',
     image: '/menu/chicken-quesadilla.jpg',
-    category: '퀘사디아',
+    category: { ko: '퀘사디아', en: 'Quesadillas' },
     spicyLevel: 0,
   },
   {
@@ -77,7 +77,7 @@ const menuItems: MenuItem[] = [
     description: { ko: '풀드 포크와 멜팅 치즈의 환상 조합', en: 'Amazing blend of pulled pork and melting cheese' },
     price: '14,000',
     image: '/menu/pork-quesadilla.jpg',
-    category: '퀘사디아',
+    category: { ko: '퀘사디아', en: 'Quesadillas' },
     spicyLevel: 2,
   },
   // 사이드
@@ -87,7 +87,7 @@ const menuItems: MenuItem[] = [
     description: { ko: '바삭한 감자튀김에 칠리와 치즈 토핑', en: 'Crispy fries topped with chili and cheese' },
     price: '8,000',
     image: '/menu/chili-cheese-fries.jpg',
-    category: '사이드',
+    category: { ko: '사이드', en: 'Sides' },
     spicyLevel: 4,
   },
   {
@@ -96,7 +96,7 @@ const menuItems: MenuItem[] = [
     description: { ko: '신선한 아보카도 과카몰리와 또르띠야 칩스', en: 'Fresh avocado guacamole with tortilla chips' },
     price: '9,000',
     image: '/menu/guacamole-chips.jpg',
-    category: '사이드',
+    category: { ko: '사이드', en: 'Sides' },
     spicyLevel: 0,
   },
   {
@@ -105,7 +105,7 @@ const menuItems: MenuItem[] = [
     description: { ko: '겉은 바삭 속은 촉촉한 치킨 윙즈', en: 'Crispy on the outside, juicy on the inside chicken wings' },
     price: '10,000',
     image: '/menu/chicken-wings.jpg',
-    category: '사이드',
+    category: { ko: '사이드', en: 'Sides' },
     spicyLevel: 1,
   },
 ];
@@ -138,7 +138,7 @@ export default function MenuDemoPage() {
   const filteredItems =
     selectedCategory === '전체'
       ? menuItems
-      : menuItems.filter((item) => item.category === selectedCategory);
+      : menuItems.filter((item) => item.category.ko === selectedCategory);
 
   const translations = {
     ko: {
@@ -158,7 +158,7 @@ export default function MenuDemoPage() {
     en: {
       backButton: '← Back to NTSS Di Me',
       title: 'MENÚ MEXICANO',
-      subtitle: 'Authentic Mexican Cuisine',
+      subtitle: 'Auténtica Cocina Mexicana',
       all: 'All',
       tacos: 'Tacos',
       quesadillas: 'Quesadillas',
@@ -285,7 +285,7 @@ export default function MenuDemoPage() {
                 className="bg-[#FFF8DC] border-4 border-[#D2691E] cursor-pointer hover:border-[#DC143C] hover:shadow-2xl transition-all duration-300 group relative overflow-hidden"
               >
                 <div className="absolute top-2 right-2 bg-[#DC143C] text-white px-3 py-1 text-xs font-bold uppercase z-10">
-                  {item.category}
+                  {item.category[language]}
                 </div>
                 <div className="relative w-full h-56 overflow-hidden border-b-4 border-[#D2691E]">
                   <Image
@@ -360,7 +360,7 @@ export default function MenuDemoPage() {
                   </p>
                   <div className="flex justify-between items-center pt-6 border-t-4 border-[#D2691E]">
                     <span className="text-sm text-[#8B4513] font-bold uppercase tracking-wider bg-[#FFD700] px-4 py-2">
-                      {selectedItem.category}
+                      {selectedItem.category[language]}
                     </span>
                     <span className="text-3xl font-black text-[#DC143C]">
                       ₩{selectedItem.price}
