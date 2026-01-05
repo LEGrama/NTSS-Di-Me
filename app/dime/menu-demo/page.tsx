@@ -133,11 +133,45 @@ const SpicyLevel = ({ level }: { level: number }) => {
 export default function MenuDemoPage() {
   const [selectedCategory, setSelectedCategory] = useState('전체');
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
+  const [language, setLanguage] = useState<'ko' | 'en'>('ko');
 
   const filteredItems =
     selectedCategory === '전체'
       ? menuItems
       : menuItems.filter((item) => item.category === selectedCategory);
+
+  const translations = {
+    ko: {
+      backButton: '← NTSS Di Me로 돌아가기',
+      title: 'MENÚ MEXICANO',
+      subtitle: 'Auténtica Cocina Mexicana',
+      all: '전체',
+      tacos: '타코',
+      quesadillas: '퀘사디아',
+      sides: '사이드',
+      spicyLevels: ['순한맛', '보통', '매운맛', '아주매운맛'],
+      demoNote: '이것은 데모입니다. 실제 메뉴는 고객님의 브랜드에 맞게 커스터마이징됩니다.',
+      ctaTitle: '🎨 맞춤 제작 서비스 🎨',
+      ctaDescription: '실제 서비스에서는 고객님의 메뉴, 브랜드 컬러, 로고, 이미지를 활용하여 완전히 커스터마이징된 디지털 메뉴판을 제작해드립니다.',
+      ctaButton: '대기명단 등록하기 →'
+    },
+    en: {
+      backButton: '← Back to NTSS Di Me',
+      title: 'MENÚ MEXICANO',
+      subtitle: 'Authentic Mexican Cuisine',
+      all: 'All',
+      tacos: 'Tacos',
+      quesadillas: 'Quesadillas',
+      sides: 'Sides',
+      spicyLevels: ['Mild', 'Medium', 'Spicy', 'Extra Spicy'],
+      demoNote: 'This is a demo. Actual menus will be fully customized to match your brand.',
+      ctaTitle: '🎨 Custom Design Service 🎨',
+      ctaDescription: 'In actual service, we create a fully customized digital menu using your menu items, brand colors, logo, and images.',
+      ctaButton: 'Join Waitlist →'
+    }
+  };
+
+  const t = translations[language];
 
   return (
     <main className="min-h-screen bg-[#D2691E]" style={{
@@ -180,12 +214,22 @@ export default function MenuDemoPage() {
 
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-6xl mx-auto">
-          <Link
-            href="/dime"
-            className="inline-block text-orange-100 hover:text-white mb-8 transition font-bold"
-          >
-            ← NTSS Di Me로 돌아가기
-          </Link>
+          <div className="flex justify-between items-center mb-8">
+            <Link
+              href="/dime"
+              className="inline-block text-orange-100 hover:text-white transition font-bold"
+            >
+              {t.backButton}
+            </Link>
+
+            <button
+              onClick={() => setLanguage(language === 'ko' ? 'en' : 'ko')}
+              className="bg-[#FFD700] hover:bg-[#FFA500] text-[#8B4513] font-bold px-4 py-2 transition-all duration-200 flex items-center gap-2"
+            >
+              <span className="text-lg">{language === 'ko' ? '🇺🇸' : '🇰🇷'}</span>
+              {language === 'ko' ? 'English' : '한국어'}
+            </button>
+          </div>
 
           {/* 멕시칸 전통 장식 헤더 */}
           <div className="bg-[#8B4513] border-4 border-[#D2691E] p-8 mb-12 relative overflow-hidden">
@@ -196,32 +240,40 @@ export default function MenuDemoPage() {
               <div className="flex justify-center gap-3 mb-4">
                 <span className="text-4xl">🌮</span>
                 <h1 className="text-4xl md:text-5xl font-black text-[#FFD700] mb-2 tracking-tight" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
-                  MENÚ MEXICANO
+                  {t.title}
                 </h1>
                 <span className="text-4xl">🌶️</span>
               </div>
               <p className="text-orange-200 text-base font-semibold">
-                Auténtica Cocina Mexicana
+                {t.subtitle}
               </p>
             </header>
           </div>
 
           {/* 카테고리 필터 */}
           <div className="flex flex-wrap gap-3 justify-center mb-12">
-            {categories.map((category) => (
-              <button
-                key={category.name}
-                onClick={() => setSelectedCategory(category.name)}
-                className={`px-8 py-3 text-base font-bold border-3 transition-all duration-200 ${
-                  selectedCategory === category.name
-                    ? 'bg-[#DC143C] text-white border-[#8B0000] shadow-lg scale-105'
-                    : 'bg-[#FFD700] text-[#8B4513] border-[#DAA520] hover:bg-[#FFA500]'
-                }`}
-              >
-                <span className="text-xl mr-2">{category.icon}</span>
-                {category.name}
-              </button>
-            ))}
+            {categories.map((category, index) => {
+              const categoryNames = {
+                ko: ['전체', '타코', '퀘사디아', '사이드'],
+                en: [t.all, t.tacos, t.quesadillas, t.sides]
+              };
+              const displayName = categoryNames[language][index];
+
+              return (
+                <button
+                  key={category.name}
+                  onClick={() => setSelectedCategory(category.name)}
+                  className={`px-8 py-3 text-base font-bold border-3 transition-all duration-200 ${
+                    selectedCategory === category.name
+                      ? 'bg-[#DC143C] text-white border-[#8B0000] shadow-lg scale-105'
+                      : 'bg-[#FFD700] text-[#8B4513] border-[#DAA520] hover:bg-[#FFA500]'
+                  }`}
+                >
+                  <span className="text-xl mr-2">{category.icon}</span>
+                  {displayName}
+                </button>
+              );
+            })}
           </div>
 
           {/* 메뉴 그리드 */}
@@ -298,10 +350,7 @@ export default function MenuDemoPage() {
                       <div className="flex flex-col items-end">
                         <SpicyLevel level={selectedItem.spicyLevel} />
                         <span className="text-xs text-[#DC143C] mt-1 font-bold">
-                          {selectedItem.spicyLevel === 1 && '순한맛'}
-                          {selectedItem.spicyLevel === 2 && '보통'}
-                          {selectedItem.spicyLevel === 3 && '매운맛'}
-                          {selectedItem.spicyLevel === 4 && '아주매운맛'}
+                          {t.spicyLevels[selectedItem.spicyLevel - 1]}
                         </span>
                       </div>
                     )}
@@ -319,7 +368,7 @@ export default function MenuDemoPage() {
                   </div>
                   <div className="mt-6 p-4 bg-[#DC143C] text-center">
                     <p className="text-sm text-white font-bold">
-                      이것은 데모입니다. 실제 메뉴는 고객님의 브랜드에 맞게 커스터마이징됩니다.
+                      {t.demoNote}
                     </p>
                   </div>
                 </div>
@@ -333,17 +382,16 @@ export default function MenuDemoPage() {
             <div className="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-r from-[#228B22] via-white to-[#DC143C]"></div>
 
             <h3 className="text-3xl font-black text-[#FFD700] mb-6 tracking-tight" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
-              🎨 맞춤 제작 서비스 🎨
+              {t.ctaTitle}
             </h3>
             <p className="text-orange-100 mb-8 leading-relaxed text-lg font-semibold">
-              실제 서비스에서는 고객님의 메뉴, 브랜드 컬러, 로고, 이미지를
-              활용하여 완전히 커스터마이징된 디지털 메뉴판을 제작해드립니다.
+              {t.ctaDescription}
             </p>
             <Link
               href="/dime"
               className="inline-block bg-[#DC143C] hover:bg-[#8B0000] text-white text-lg font-black py-4 px-10 tracking-wider transition-all duration-200 uppercase shadow-lg hover:scale-105"
             >
-              대기명단 등록하기 →
+              {t.ctaButton}
             </Link>
           </div>
         </div>
