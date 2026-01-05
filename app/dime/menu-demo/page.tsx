@@ -6,8 +6,8 @@ import Image from 'next/image';
 
 interface MenuItem {
   id: number;
-  name: string;
-  description: string;
+  name: { ko: string; en: string };
+  description: { ko: string; en: string };
   price: string;
   image: string;
   category: string;
@@ -18,8 +18,8 @@ const menuItems: MenuItem[] = [
   // 타코
   {
     id: 1,
-    name: '피쉬 타코',
-    description: '신선한 생선과 특제 소스가 어우러진 타코',
+    name: { ko: '피쉬 타코', en: 'Fish Taco' },
+    description: { ko: '신선한 생선과 특제 소스가 어우러진 타코', en: 'Fresh fish with special sauce in a soft tortilla' },
     price: '12,000',
     image: '/menu/fish-taco.jpg',
     category: '타코',
@@ -27,8 +27,8 @@ const menuItems: MenuItem[] = [
   },
   {
     id: 2,
-    name: '비프 타코',
-    description: '육즙 가득한 비프와 신선한 채소',
+    name: { ko: '비프 타코', en: 'Beef Taco' },
+    description: { ko: '육즙 가득한 비프와 신선한 채소', en: 'Juicy beef with fresh vegetables' },
     price: '13,000',
     image: '/menu/beef-taco.jpg',
     category: '타코',
@@ -36,8 +36,8 @@ const menuItems: MenuItem[] = [
   },
   {
     id: 3,
-    name: '포크 타코',
-    description: '부드러운 포크와 매콤한 소스의 조화',
+    name: { ko: '포크 타코', en: 'Pork Taco' },
+    description: { ko: '부드러운 포크와 매콤한 소스의 조화', en: 'Tender pork with spicy sauce' },
     price: '12,000',
     image: '/menu/pork-taco.jpg',
     category: '타코',
@@ -45,8 +45,8 @@ const menuItems: MenuItem[] = [
   },
   {
     id: 4,
-    name: '치킨 타코',
-    description: '그릴에 구운 치킨과 아보카도 크림',
+    name: { ko: '치킨 타코', en: 'Chicken Taco' },
+    description: { ko: '그릴에 구운 치킨과 아보카도 크림', en: 'Grilled chicken with avocado cream' },
     price: '11,000',
     image: '/menu/chicken-taco.jpg',
     category: '타코',
@@ -55,8 +55,8 @@ const menuItems: MenuItem[] = [
   // 퀘사디아
   {
     id: 5,
-    name: '비프 퀘사디아',
-    description: '치즈와 비프가 가득한 따끈한 퀘사디아',
+    name: { ko: '비프 퀘사디아', en: 'Beef Quesadilla' },
+    description: { ko: '치즈와 비프가 가득한 따끈한 퀘사디아', en: 'Warm quesadilla filled with cheese and beef' },
     price: '15,000',
     image: '/menu/beef-quesadilla.jpg',
     category: '퀘사디아',
@@ -64,8 +64,8 @@ const menuItems: MenuItem[] = [
   },
   {
     id: 6,
-    name: '치킨 퀘사디아',
-    description: '그릴 치킨과 녹인 치즈의 완벽한 조합',
+    name: { ko: '치킨 퀘사디아', en: 'Chicken Quesadilla' },
+    description: { ko: '그릴 치킨과 녹인 치즈의 완벽한 조합', en: 'Perfect combination of grilled chicken and melted cheese' },
     price: '14,000',
     image: '/menu/chicken-quesadilla.jpg',
     category: '퀘사디아',
@@ -73,8 +73,8 @@ const menuItems: MenuItem[] = [
   },
   {
     id: 7,
-    name: '포크 퀘사디아',
-    description: '풀드 포크와 멜팅 치즈의 환상 조합',
+    name: { ko: '포크 퀘사디아', en: 'Pork Quesadilla' },
+    description: { ko: '풀드 포크와 멜팅 치즈의 환상 조합', en: 'Amazing blend of pulled pork and melting cheese' },
     price: '14,000',
     image: '/menu/pork-quesadilla.jpg',
     category: '퀘사디아',
@@ -83,8 +83,8 @@ const menuItems: MenuItem[] = [
   // 사이드
   {
     id: 8,
-    name: '칠리 치즈 프라이즈',
-    description: '바삭한 감자튀김에 칠리와 치즈 토핑',
+    name: { ko: '칠리 치즈 프라이즈', en: 'Chili Cheese Fries' },
+    description: { ko: '바삭한 감자튀김에 칠리와 치즈 토핑', en: 'Crispy fries topped with chili and cheese' },
     price: '8,000',
     image: '/menu/chili-cheese-fries.jpg',
     category: '사이드',
@@ -92,8 +92,8 @@ const menuItems: MenuItem[] = [
   },
   {
     id: 9,
-    name: '과카몰리와 칩스',
-    description: '신선한 아보카도 과카몰리와 또르띠야 칩스',
+    name: { ko: '과카몰리와 칩스', en: 'Guacamole & Chips' },
+    description: { ko: '신선한 아보카도 과카몰리와 또르띠야 칩스', en: 'Fresh avocado guacamole with tortilla chips' },
     price: '9,000',
     image: '/menu/guacamole-chips.jpg',
     category: '사이드',
@@ -101,8 +101,8 @@ const menuItems: MenuItem[] = [
   },
   {
     id: 10,
-    name: '프레시 치킨 윙즈',
-    description: '겉은 바삭 속은 촉촉한 치킨 윙즈',
+    name: { ko: '프레시 치킨 윙즈', en: 'Fresh Chicken Wings' },
+    description: { ko: '겉은 바삭 속은 촉촉한 치킨 윙즈', en: 'Crispy on the outside, juicy on the inside chicken wings' },
     price: '10,000',
     image: '/menu/chicken-wings.jpg',
     category: '사이드',
@@ -290,7 +290,7 @@ export default function MenuDemoPage() {
                 <div className="relative w-full h-56 overflow-hidden border-b-4 border-[#D2691E]">
                   <Image
                     src={item.image}
-                    alt={item.name}
+                    alt={item.name[language]}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-300"
                   />
@@ -298,11 +298,11 @@ export default function MenuDemoPage() {
                 <div className="p-6 bg-[#FFF8DC]">
                   <div className="flex justify-between items-start mb-3">
                     <h3 className="text-2xl font-black text-[#8B4513] tracking-tight">
-                      {item.name}
+                      {item.name[language]}
                     </h3>
                     {item.spicyLevel > 0 && <SpicyLevel level={item.spicyLevel} />}
                   </div>
-                  <p className="text-[#8B4513] text-sm mb-4 leading-relaxed font-medium">{item.description}</p>
+                  <p className="text-[#8B4513] text-sm mb-4 leading-relaxed font-medium">{item.description[language]}</p>
                   <div className="flex justify-between items-center pt-4 border-t-2 border-[#D2691E]">
                     <span className="text-2xl font-black text-[#DC143C]">
                       ₩{item.price}
@@ -336,7 +336,7 @@ export default function MenuDemoPage() {
                 <div className="relative w-full h-80 border-b-4 border-[#D2691E] mt-4">
                   <Image
                     src={selectedItem.image}
-                    alt={selectedItem.name}
+                    alt={selectedItem.name[language]}
                     fill
                     className="object-cover"
                   />
@@ -344,7 +344,7 @@ export default function MenuDemoPage() {
                 <div className="p-8">
                   <div className="flex justify-between items-start mb-4">
                     <h2 className="text-3xl font-black text-[#8B4513] tracking-tight">
-                      {selectedItem.name}
+                      {selectedItem.name[language]}
                     </h2>
                     {selectedItem.spicyLevel > 0 && (
                       <div className="flex flex-col items-end">
@@ -356,7 +356,7 @@ export default function MenuDemoPage() {
                     )}
                   </div>
                   <p className="text-[#8B4513] mb-6 leading-relaxed font-medium">
-                    {selectedItem.description}
+                    {selectedItem.description[language]}
                   </p>
                   <div className="flex justify-between items-center pt-6 border-t-4 border-[#D2691E]">
                     <span className="text-sm text-[#8B4513] font-bold uppercase tracking-wider bg-[#FFD700] px-4 py-2">
