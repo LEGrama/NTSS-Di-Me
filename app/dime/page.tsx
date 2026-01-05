@@ -1,13 +1,36 @@
 import WaitlistForm from '../components/WaitlistForm';
 import Link from 'next/link';
-import Image from 'next/image';
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#a60202] transition-colors">
       {/* 홈 아이콘 */}
-      <Link href="/" className="fixed top-6 left-6 z-50 hover:opacity-80 transition">
-        <Image src="/ntss.svg" alt="NTSS Home" width={48} height={48} className="rounded-lg w-12 h-12" unoptimized priority />
+      <Link
+        href="/"
+        className="fixed top-6 left-6 z-50 hover:opacity-80 transition-opacity duration-200"
+        style={{
+          display: 'block',
+          width: '48px',
+          height: '48px',
+          borderRadius: '0.5rem',
+          overflow: 'hidden',
+          backgroundColor: 'transparent'
+        }}
+      >
+        <img
+          src="/ntss.png"
+          alt="NTSS Home"
+          width="48"
+          height="48"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain',
+            display: 'block',
+            imageRendering: 'auto'
+          }}
+          loading="eager"
+        />
       </Link>
 
       <div className="container mx-auto px-4 py-20">
