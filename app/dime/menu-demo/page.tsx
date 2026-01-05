@@ -140,7 +140,15 @@ export default function MenuDemoPage() {
       : menuItems.filter((item) => item.category === selectedCategory);
 
   return (
-    <main className="min-h-screen bg-[#ede7d9]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' /%3E%3CfeColorMatrix type=\'saturate\' values=\'0\'/%3E%3C/filter%3E%3Crect width=\'100\' height=\'100\' filter=\'url(%23noise)\' opacity=\'0.03\'/%3E%3C/svg%3E")' }}>
+    <main className="min-h-screen bg-[#D2691E]" style={{
+      backgroundImage: `repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 35px,
+        rgba(0,0,0,.03) 35px,
+        rgba(0,0,0,.03) 70px
+      )`
+    }}>
       {/* 홈 아이콘 */}
       <Link
         href="/"
@@ -174,33 +182,43 @@ export default function MenuDemoPage() {
         <div className="max-w-6xl mx-auto">
           <Link
             href="/dime"
-            className="inline-block text-neutral-700 hover:text-neutral-900 mb-8 transition font-medium"
+            className="inline-block text-orange-100 hover:text-white mb-8 transition font-bold"
           >
             ← NTSS Di Me로 돌아가기
           </Link>
 
-          <header className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-light text-neutral-800 mb-3 tracking-wide">
-              디지털 메뉴판
-            </h1>
-            <div className="w-12 h-px bg-neutral-400 mx-auto mb-6"></div>
-            <p className="text-neutral-600 text-sm tracking-wide uppercase">
-              Menu Selection
-            </p>
-          </header>
+          {/* 멕시칸 전통 장식 헤더 */}
+          <div className="bg-[#8B4513] border-4 border-[#D2691E] p-8 mb-12 relative overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-[#228B22] via-white to-[#DC143C]"></div>
+            <div className="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-r from-[#228B22] via-white to-[#DC143C]"></div>
+
+            <header className="text-center relative">
+              <div className="flex justify-center gap-3 mb-4">
+                <span className="text-4xl">🌮</span>
+                <h1 className="text-4xl md:text-5xl font-black text-[#FFD700] mb-2 tracking-tight" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
+                  MENÚ MEXICANO
+                </h1>
+                <span className="text-4xl">🌶️</span>
+              </div>
+              <p className="text-orange-200 text-base font-semibold">
+                Auténtica Cocina Mexicana
+              </p>
+            </header>
+          </div>
 
           {/* 카테고리 필터 */}
-          <div className="flex flex-wrap gap-2 justify-center mb-16">
+          <div className="flex flex-wrap gap-3 justify-center mb-12">
             {categories.map((category) => (
               <button
                 key={category.name}
                 onClick={() => setSelectedCategory(category.name)}
-                className={`px-6 py-2 text-sm tracking-wider transition-all duration-200 ${
+                className={`px-8 py-3 text-base font-bold border-3 transition-all duration-200 ${
                   selectedCategory === category.name
-                    ? 'bg-neutral-800 text-white'
-                    : 'bg-white text-neutral-700 hover:bg-neutral-100'
+                    ? 'bg-[#DC143C] text-white border-[#8B0000] shadow-lg scale-105'
+                    : 'bg-[#FFD700] text-[#8B4513] border-[#DAA520] hover:bg-[#FFA500]'
                 }`}
               >
+                <span className="text-xl mr-2">{category.icon}</span>
                 {category.name}
               </button>
             ))}
@@ -212,31 +230,32 @@ export default function MenuDemoPage() {
               <div
                 key={item.id}
                 onClick={() => setSelectedItem(item)}
-                className="bg-white cursor-pointer hover:shadow-xl transition-all duration-300 group"
+                className="bg-[#FFF8DC] border-4 border-[#D2691E] cursor-pointer hover:border-[#DC143C] hover:shadow-2xl transition-all duration-300 group relative overflow-hidden"
               >
-                <div className="relative w-full h-56 overflow-hidden">
+                <div className="absolute top-2 right-2 bg-[#DC143C] text-white px-3 py-1 text-xs font-bold uppercase z-10">
+                  {item.category}
+                </div>
+                <div className="relative w-full h-56 overflow-hidden border-b-4 border-[#D2691E]">
                   <Image
                     src={item.image}
                     alt={item.name}
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="object-cover group-hover:scale-110 transition-transform duration-300"
                   />
                 </div>
-                <div className="p-6">
+                <div className="p-6 bg-[#FFF8DC]">
                   <div className="flex justify-between items-start mb-3">
-                    <h3 className="text-xl font-light text-neutral-800 tracking-wide">
+                    <h3 className="text-2xl font-black text-[#8B4513] tracking-tight">
                       {item.name}
                     </h3>
                     {item.spicyLevel > 0 && <SpicyLevel level={item.spicyLevel} />}
                   </div>
-                  <p className="text-neutral-600 text-sm mb-4 leading-relaxed">{item.description}</p>
-                  <div className="flex justify-between items-center pt-3 border-t border-neutral-200">
-                    <span className="text-xs text-neutral-500 uppercase tracking-widest">
-                      {item.category}
-                    </span>
-                    <span className="text-lg font-light text-neutral-800">
+                  <p className="text-[#8B4513] text-sm mb-4 leading-relaxed font-medium">{item.description}</p>
+                  <div className="flex justify-between items-center pt-4 border-t-2 border-[#D2691E]">
+                    <span className="text-2xl font-black text-[#DC143C]">
                       ₩{item.price}
                     </span>
+                    <span className="text-[#FFD700] text-2xl">★</span>
                   </div>
                 </div>
               </div>
@@ -250,16 +269,19 @@ export default function MenuDemoPage() {
               onClick={() => setSelectedItem(null)}
             >
               <div
-                className="bg-white max-w-lg w-full relative shadow-2xl overflow-hidden"
+                className="bg-[#FFF8DC] border-8 border-[#D2691E] max-w-lg w-full relative shadow-2xl overflow-hidden"
                 onClick={(e) => e.stopPropagation()}
               >
+                <div className="absolute top-0 left-0 right-0 h-4 bg-gradient-to-r from-[#228B22] via-white to-[#DC143C]"></div>
+                <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-r from-[#228B22] via-white to-[#DC143C]"></div>
+
                 <button
                   onClick={() => setSelectedItem(null)}
-                  className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm w-10 h-10 flex items-center justify-center text-neutral-600 hover:text-neutral-900 hover:bg-white text-2xl transition z-10 shadow-lg"
+                  className="absolute top-6 right-6 bg-[#DC143C] hover:bg-[#8B0000] w-12 h-12 flex items-center justify-center text-white text-3xl font-black transition z-10 shadow-lg"
                 >
                   ×
                 </button>
-                <div className="relative w-full h-80">
+                <div className="relative w-full h-80 border-b-4 border-[#D2691E] mt-4">
                   <Image
                     src={selectedItem.image}
                     alt={selectedItem.name}
@@ -269,13 +291,13 @@ export default function MenuDemoPage() {
                 </div>
                 <div className="p-8">
                   <div className="flex justify-between items-start mb-4">
-                    <h2 className="text-3xl font-light text-neutral-800 tracking-wide">
+                    <h2 className="text-3xl font-black text-[#8B4513] tracking-tight">
                       {selectedItem.name}
                     </h2>
                     {selectedItem.spicyLevel > 0 && (
                       <div className="flex flex-col items-end">
                         <SpicyLevel level={selectedItem.spicyLevel} />
-                        <span className="text-xs text-neutral-600 mt-1">
+                        <span className="text-xs text-[#DC143C] mt-1 font-bold">
                           {selectedItem.spicyLevel === 1 && '순한맛'}
                           {selectedItem.spicyLevel === 2 && '보통'}
                           {selectedItem.spicyLevel === 3 && '매운맛'}
@@ -284,19 +306,19 @@ export default function MenuDemoPage() {
                       </div>
                     )}
                   </div>
-                  <p className="text-neutral-600 mb-6 leading-relaxed">
+                  <p className="text-[#8B4513] mb-6 leading-relaxed font-medium">
                     {selectedItem.description}
                   </p>
-                  <div className="flex justify-between items-center pt-6 border-t border-neutral-200">
-                    <span className="text-xs text-neutral-500 uppercase tracking-widest">
+                  <div className="flex justify-between items-center pt-6 border-t-4 border-[#D2691E]">
+                    <span className="text-sm text-[#8B4513] font-bold uppercase tracking-wider bg-[#FFD700] px-4 py-2">
                       {selectedItem.category}
                     </span>
-                    <span className="text-2xl font-light text-neutral-800">
+                    <span className="text-3xl font-black text-[#DC143C]">
                       ₩{selectedItem.price}
                     </span>
                   </div>
-                  <div className="mt-6 p-4 bg-neutral-50 text-center">
-                    <p className="text-xs text-neutral-600">
+                  <div className="mt-6 p-4 bg-[#DC143C] text-center">
+                    <p className="text-sm text-white font-bold">
                       이것은 데모입니다. 실제 메뉴는 고객님의 브랜드에 맞게 커스터마이징됩니다.
                     </p>
                   </div>
@@ -306,20 +328,22 @@ export default function MenuDemoPage() {
           )}
 
           {/* 안내 문구 */}
-          <div className="mt-16 text-center bg-white p-12 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-light text-neutral-800 mb-4 tracking-wide">
-              귀하의 브랜드에 맞는 맞춤 제작
+          <div className="mt-16 text-center bg-[#8B4513] border-4 border-[#D2691E] p-12 max-w-2xl mx-auto relative overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-[#228B22] via-white to-[#DC143C]"></div>
+            <div className="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-r from-[#228B22] via-white to-[#DC143C]"></div>
+
+            <h3 className="text-3xl font-black text-[#FFD700] mb-6 tracking-tight" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
+              🎨 맞춤 제작 서비스 🎨
             </h3>
-            <div className="w-12 h-px bg-neutral-400 mx-auto mb-6"></div>
-            <p className="text-neutral-600 mb-8 leading-relaxed">
+            <p className="text-orange-100 mb-8 leading-relaxed text-lg font-semibold">
               실제 서비스에서는 고객님의 메뉴, 브랜드 컬러, 로고, 이미지를
               활용하여 완전히 커스터마이징된 디지털 메뉴판을 제작해드립니다.
             </p>
             <Link
               href="/dime"
-              className="inline-block bg-neutral-800 hover:bg-neutral-900 text-white text-sm py-3 px-8 tracking-wider transition-all duration-200 uppercase"
+              className="inline-block bg-[#DC143C] hover:bg-[#8B0000] text-white text-lg font-black py-4 px-10 tracking-wider transition-all duration-200 uppercase shadow-lg hover:scale-105"
             >
-              대기명단 등록하기
+              대기명단 등록하기 →
             </Link>
           </div>
         </div>
