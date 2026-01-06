@@ -250,6 +250,26 @@ export default function MenuDemoPage() {
             </header>
           </div>
 
+          {/* 홍보 영상 섹션 */}
+          <div className="mb-12 border-4 border-[#D2691E] bg-black relative overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-[#228B22] via-white to-[#DC143C] z-10"></div>
+            <div className="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-r from-[#228B22] via-white to-[#DC143C] z-10"></div>
+
+            <div className="relative w-full" style={{ aspectRatio: '16/9' }}>
+              <video
+                className="w-full h-full object-cover"
+                autoPlay
+                loop
+                muted
+                playsInline
+                poster="/video-poster.jpg"
+              >
+                <source src="/promo-video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+
           {/* 카테고리 필터 */}
           <div className="flex flex-wrap gap-3 justify-center mb-12">
             {categories.map((category, index) => {
