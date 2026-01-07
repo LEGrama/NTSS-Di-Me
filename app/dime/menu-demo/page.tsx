@@ -46,42 +46,10 @@ const menuItems: MenuItem[] = [
     spicyLevel: 1,
     isBest: true,
     detailImage: '/menu/fish-taco-detail.jpg',
-    ingredients: {
-      ko: '신선한 생선, 양배추, 토마토, 라임, 특제 소스, 또르띠야',
-      en: 'Fresh fish, cabbage, tomato, lime, special sauce, tortilla'
-    },
-    nutrition: {
-      calories: 320,
-      protein: '25g',
-      fat: '12g',
-      carbs: '35g'
-    },
     allergens: {
       ko: '이 제품은 밀, 생선, 유제품을 포함하고 있습니다.',
       en: 'Contains: Wheat, Fish, Dairy'
-    },
-    pairing: {
-      ko: ['과카몰리 칩스', '마르가리타'],
-      en: ['Guacamole & Chips', 'Margarita']
-    },
-    reviews: [
-      {
-        rating: 5,
-        text: {
-          ko: '정말 신선하고 맛있어요! 생선이 부드럽고 소스가 환상적입니다.',
-          en: 'Super fresh and delicious! The fish is tender and the sauce is amazing.'
-        },
-        author: { ko: '김민수', en: 'John D.' }
-      },
-      {
-        rating: 5,
-        text: {
-          ko: '이집 시그니처 메뉴! 매번 주문합니다. 강추!',
-          en: 'This is their signature dish! I order it every time. Highly recommend!'
-        },
-        author: { ko: '박지영', en: 'Sarah K.' }
-      }
-    ]
+    }
   },
   {
     id: 2,
@@ -511,55 +479,6 @@ export default function MenuDemoPage() {
                     </p>
                   </div>
 
-                  {/* 재료 정보 */}
-                  {selectedItem.ingredients && (
-                    <div className="mb-8">
-                      <h3 className="text-2xl font-black text-[#00512e] uppercase mb-4 tracking-wider flex items-center gap-2">
-                        <span>🥬</span> {language === 'ko' ? '재료 정보' : 'Ingredients'}
-                      </h3>
-                      <div className="bg-[#ede7d9] p-6 rounded-lg">
-                        <p className="text-[#00512e] font-semibold text-lg leading-relaxed">
-                          {selectedItem.ingredients[language]}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* 영양 정보 */}
-                  {selectedItem.nutrition && (
-                    <div className="mb-8">
-                      <h3 className="text-2xl font-black text-[#00512e] uppercase mb-4 tracking-wider flex items-center gap-2">
-                        <span>💪</span> {language === 'ko' ? '영양 정보' : 'Nutrition Facts'}
-                      </h3>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div className="bg-[#ede7d9] p-4 rounded-lg text-center border-4 border-[#00512e]">
-                          <div className="text-3xl font-black text-[#d62829]">{selectedItem.nutrition.calories}</div>
-                          <div className="text-sm font-black text-[#00512e] uppercase mt-1">
-                            {language === 'ko' ? '칼로리' : 'Calories'}
-                          </div>
-                        </div>
-                        <div className="bg-[#ede7d9] p-4 rounded-lg text-center border-4 border-[#00512e]">
-                          <div className="text-3xl font-black text-[#d62829]">{selectedItem.nutrition.protein}</div>
-                          <div className="text-sm font-black text-[#00512e] uppercase mt-1">
-                            {language === 'ko' ? '단백질' : 'Protein'}
-                          </div>
-                        </div>
-                        <div className="bg-[#ede7d9] p-4 rounded-lg text-center border-4 border-[#00512e]">
-                          <div className="text-3xl font-black text-[#d62829]">{selectedItem.nutrition.fat}</div>
-                          <div className="text-sm font-black text-[#00512e] uppercase mt-1">
-                            {language === 'ko' ? '지방' : 'Fat'}
-                          </div>
-                        </div>
-                        <div className="bg-[#ede7d9] p-4 rounded-lg text-center border-4 border-[#00512e]">
-                          <div className="text-3xl font-black text-[#d62829]">{selectedItem.nutrition.carbs}</div>
-                          <div className="text-sm font-black text-[#00512e] uppercase mt-1">
-                            {language === 'ko' ? '탄수화물' : 'Carbs'}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
                   {/* 알레르기 정보 */}
                   {selectedItem.allergens && (
                     <div className="mb-8">
@@ -570,29 +489,6 @@ export default function MenuDemoPage() {
                         <p className="text-white font-bold text-lg">
                           {selectedItem.allergens[language]}
                         </p>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* 추천 조합 */}
-                  {selectedItem.pairing && (
-                    <div className="mb-8">
-                      <h3 className="text-2xl font-black text-[#00512e] uppercase mb-4 tracking-wider flex items-center gap-2">
-                        <span>🤝</span> {language === 'ko' ? '추천 조합' : 'Perfect Pairing'}
-                      </h3>
-                      <div className="bg-[#ede7d9] p-6 rounded-lg border-4 border-[#00512e]">
-                        <p className="text-[#00512e] font-bold text-lg mb-3">
-                          {language === 'ko'
-                            ? '이 메뉴와 함께 즐기면 더 맛있어요!'
-                            : 'Goes great with:'}
-                        </p>
-                        <div className="flex flex-wrap gap-3">
-                          {selectedItem.pairing[language].map((item, index) => (
-                            <span key={index} className="bg-white px-4 py-2 text-[#00512e] font-black rounded-full border-3 border-[#f77f02]">
-                              {index === 0 ? '🍟' : '🥤'} {item}
-                            </span>
-                          ))}
-                        </div>
                       </div>
                     </div>
                   )}
@@ -612,33 +508,6 @@ export default function MenuDemoPage() {
                           style={{ height: 'auto', width: '100%' }}
                           className="rounded-lg"
                         />
-                      </div>
-                    </div>
-                  )}
-
-                  {/* 고객 리뷰 */}
-                  {selectedItem.reviews && selectedItem.reviews.length > 0 && (
-                    <div className="mb-8">
-                      <h3 className="text-2xl font-black text-[#00512e] uppercase mb-4 tracking-wider flex items-center gap-2">
-                        <span>⭐</span> {language === 'ko' ? '고객 리뷰' : 'Customer Reviews'}
-                      </h3>
-                      <div className="space-y-4">
-                        {selectedItem.reviews.map((review, index) => (
-                          <div key={index} className="bg-[#ede7d9] p-6 rounded-lg border-4 border-[#00512e]">
-                            <div className="flex items-center gap-2 mb-3">
-                              <div className="flex">
-                                {'⭐'.repeat(review.rating)}
-                              </div>
-                              <span className="font-black text-[#00512e]">{review.rating}.0</span>
-                            </div>
-                            <p className="text-[#00512e] font-semibold text-lg mb-2">
-                              "{review.text[language]}"
-                            </p>
-                            <p className="text-[#00512e] text-sm font-bold">
-                              - {review.author[language]}
-                            </p>
-                          </div>
-                        ))}
                       </div>
                     </div>
                   )}
