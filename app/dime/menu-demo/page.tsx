@@ -499,12 +499,12 @@ export default function MenuDemoPage() {
                       <h3 className="text-2xl font-black text-[#00512e] uppercase mb-4 tracking-wider flex items-center gap-2">
                         <span>🍴</span> {language === 'ko' ? '상세 정보' : 'Detail Information'}
                       </h3>
-                      <div className="bg-[#ede7d9] p-4 rounded-lg">
+                      <div className="w-full">
                         <img
                           src={selectedItem.detailImage}
                           alt={`${selectedItem.name[language]} detail`}
-                          className="rounded-lg w-full h-auto"
-                          style={{ maxWidth: '100%', height: 'auto' }}
+                          className="w-full h-auto"
+                          style={{ display: 'block', maxWidth: '100%', height: 'auto' }}
                         />
                       </div>
                     </div>
