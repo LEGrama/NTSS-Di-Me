@@ -507,6 +507,8 @@ export default function MenuDemoPage() {
                           height={0}
                           style={{ height: 'auto', width: '100%' }}
                           className="rounded-lg"
+                          unoptimized
+                          priority
                         />
                       </div>
                     </div>
