@@ -406,9 +406,9 @@ export default function MenuDemoPage() {
               </div>
 
               {/* 메인 컨텐츠 */}
-              <div className="max-w-5xl mx-auto pb-8">
+              <div className="max-w-4xl mx-auto pb-12 px-4">
                 {/* 이미지/영상 섹션 */}
-                <div className="relative w-full bg-[#ede7d9] flex items-center justify-center" style={{ minHeight: '400px' }}>
+                <div className="relative w-full flex items-center justify-center mb-8">
                   {selectedItem.video ? (
                     <video
                       className="w-full h-auto"
@@ -433,90 +433,70 @@ export default function MenuDemoPage() {
                     </div>
                   )}
                   {selectedItem.isBest && (
-                    <div className="absolute top-6 left-6 bg-[#f77f02] text-white px-6 py-3 text-lg font-black uppercase tracking-wider shadow-2xl">
-                      ⭐ BEST
+                    <div className="absolute top-4 left-4 bg-[#f77f02] text-white px-4 py-2 text-sm font-bold uppercase tracking-wider">
+                      BEST
                     </div>
                   )}
                 </div>
 
-                {/* 상품 정보 카드 */}
-                <div className="bg-white border-8 border-[#00512e] mx-4 mt-6 p-8 shadow-2xl">
-                  {/* 상단: 카테고리와 이름 */}
-                  <div className="mb-6">
-                    <div className="inline-block bg-[#f77f02] text-white px-5 py-2 text-base font-black uppercase tracking-wider mb-4 shadow-md">
+                {/* 상품 정보 */}
+                <div className="space-y-8">
+                  {/* 이름과 가격 */}
+                  <div>
+                    <div className="text-sm text-[#00512e]/70 font-semibold uppercase tracking-wider mb-2">
                       {selectedItem.category[language]}
                     </div>
-                    <div className="flex justify-between items-start">
-                      <h2 className="text-5xl md:text-6xl font-black text-[#00512e] tracking-tight uppercase flex-1">
+                    <div className="flex justify-between items-start mb-4">
+                      <h2 className="text-4xl md:text-5xl font-black text-[#00512e] tracking-tight flex-1">
                         {selectedItem.name[language]}
                       </h2>
                       {selectedItem.spicyLevel > 0 && (
-                        <div className="flex flex-col items-end bg-[#ede7d9] px-5 py-3 rounded-lg ml-4">
+                        <div className="flex items-center gap-2 ml-4">
                           <SpicyLevel level={selectedItem.spicyLevel} />
-                          <span className="text-sm text-[#d62829] mt-2 font-black uppercase tracking-wider">
-                            {t.spicyLevels[selectedItem.spicyLevel - 1]}
-                          </span>
                         </div>
                       )}
                     </div>
-                  </div>
-
-                  {/* 가격 */}
-                  <div className="mb-8 pb-8 border-b-4 border-[#ede7d9]">
-                    <div className="flex items-baseline gap-3">
-                      <span className="text-6xl font-black text-[#d62829]">₩{selectedItem.price}</span>
-                      <span className="text-2xl text-[#00512e] font-bold">{language === 'ko' ? '원' : 'KRW'}</span>
+                    <div className="text-3xl font-black text-[#d62829]">
+                      ₩{selectedItem.price}
                     </div>
                   </div>
 
                   {/* 설명 */}
-                  <div className="mb-8">
-                    <h3 className="text-2xl font-black text-[#00512e] uppercase mb-4 tracking-wider flex items-center gap-2">
-                      <span>📝</span> {language === 'ko' ? '상세 설명' : 'Description'}
-                    </h3>
-                    <p className="text-[#00512e] leading-relaxed font-semibold text-xl bg-[#ede7d9] p-6 rounded-lg">
+                  <div>
+                    <p className="text-[#00512e] leading-relaxed text-lg">
                       {selectedItem.description[language]}
                     </p>
                   </div>
 
                   {/* 알레르기 정보 */}
                   {selectedItem.allergens && (
-                    <div className="mb-8">
-                      <h3 className="text-2xl font-black text-[#00512e] uppercase mb-4 tracking-wider flex items-center gap-2">
-                        <span>⚠️</span> {language === 'ko' ? '알레르기 정보' : 'Allergen Info'}
-                      </h3>
-                      <div className="bg-[#f77f02] p-5 rounded-lg">
-                        <p className="text-white font-bold text-lg">
-                          {selectedItem.allergens[language]}
-                        </p>
+                    <div className="pt-4 border-t border-[#ede7d9]">
+                      <div className="text-sm text-[#00512e]/70 font-semibold uppercase tracking-wider mb-2">
+                        {language === 'ko' ? '알레르기 정보' : 'Allergen Info'}
                       </div>
+                      <p className="text-[#00512e] text-base">
+                        {selectedItem.allergens[language]}
+                      </p>
                     </div>
                   )}
 
                   {/* 상세 이미지 */}
                   {selectedItem.detailImage && (
-                    <div className="mb-8">
-                      <h3 className="text-2xl font-black text-[#00512e] uppercase mb-4 tracking-wider flex items-center gap-2">
-                        <span>🍴</span> {language === 'ko' ? '상세 정보' : 'Detail Information'}
-                      </h3>
-                      <div className="w-full">
-                        <img
-                          src={selectedItem.detailImage}
-                          alt={`${selectedItem.name[language]} detail`}
-                          className="w-full h-auto"
-                          style={{ display: 'block', maxWidth: '100%', height: 'auto' }}
-                        />
-                      </div>
+                    <div className="pt-4">
+                      <img
+                        src={selectedItem.detailImage}
+                        alt={`${selectedItem.name[language]} detail`}
+                        className="w-full h-auto"
+                        style={{ display: 'block', maxWidth: '100%', height: 'auto' }}
+                      />
                     </div>
                   )}
 
                   {/* 데모 안내 */}
-                  <div className="border-t-4 border-[#ede7d9] pt-6">
-                    <div className="bg-[#00512e] p-6 rounded-lg text-center">
-                      <p className="text-[#ede7d9] font-bold text-lg leading-relaxed">
-                        {t.demoNote}
-                      </p>
-                    </div>
+                  <div className="pt-8 border-t border-[#ede7d9]">
+                    <p className="text-[#00512e]/70 text-sm text-center">
+                      {t.demoNote}
+                    </p>
                   </div>
                 </div>
               </div>
