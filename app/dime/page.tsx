@@ -81,20 +81,24 @@ export default function Home() {
 
           <WaitlistForm />
 
-          <div className="mt-10 text-center text-sm text-white/70 font-normal">
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <div className="mt-10 text-center">
+            {/* 메뉴판 데모 버튼 - 강조 */}
+            <div className="mb-6">
+              <Link
+                href="/dime/menu-demo"
+                className="inline-block border-2 border-white text-white hover:bg-white hover:text-[#a60202] font-bold px-8 py-3 transition-all duration-200 tracking-wide text-base"
+              >
+                디지털 메뉴판 데모 보기 →
+              </Link>
+            </div>
+
+            {/* 기타 링크들 */}
+            <div className="flex flex-col sm:flex-row gap-3 justify-center text-sm text-white/70 font-normal">
               <Link
                 href="/"
                 className="inline-block text-white hover:underline font-medium"
               >
                 ← NTSS 홈으로
-              </Link>
-              <span className="hidden sm:inline text-white/50">|</span>
-              <Link
-                href="/dime/menu-demo"
-                className="inline-block text-white hover:underline font-medium"
-              >
-                디지털 메뉴판 데모 보기 →
               </Link>
               <span className="hidden sm:inline text-white/50">|</span>
               <Link
