@@ -232,7 +232,25 @@ export default function MenuDemoPage() {
   const t = translations[language];
 
   return (
-    <main className="min-h-screen bg-[#ede7d9]" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+    <main 
+      className="min-h-screen bg-[#ede7d9] relative" 
+      style={{ 
+        fontFamily: 'system-ui, -apple-system, sans-serif',
+        // WebP를 우선 사용하고, 지원하지 않으면 PNG 사용
+        backgroundImage: 'url(/mexican-pattern.webp), url(/mexican-pattern.png)',
+        backgroundRepeat: 'repeat',
+        backgroundSize: '400px 400px',
+        backgroundPosition: '0 0'
+      }}
+    >
+      {/* 배경 오버레이 - 패턴 위에 살짝 덮어서 가독성 향상 */}
+      <div 
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundColor: 'rgba(237, 231, 217, 0.7)' // 베이지색 오버레이로 패턴을 살짝 흐리게
+        }}
+      />
+      <div className="relative z-10">
       {/* 홈 아이콘 */}
       <Link
         href="/"
@@ -654,6 +672,7 @@ export default function MenuDemoPage() {
             </Link>
           </div>
         </div>
+      </div>
       </div>
     </main>
   );
