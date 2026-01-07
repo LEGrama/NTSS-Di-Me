@@ -14,7 +14,9 @@ interface MenuItem {
   category: { ko: string; en: string };
   spicyLevel: number; // 0: 안맵게, 1: 순한맛, 2: 보통, 3: 매운맛, 4: 아주매운맛
   isBest?: boolean;
-  // 상세 페이지용 추가 정보
+  // 상세 페이지용 이미지 (860px 가로)
+  detailImage?: string;
+  // 상세 정보
   ingredients?: { ko: string; en: string };
   nutrition?: {
     calories: number;
@@ -43,6 +45,7 @@ const menuItems: MenuItem[] = [
     category: { ko: '타코', en: 'Tacos' },
     spicyLevel: 1,
     isBest: true,
+    detailImage: '/menu/fish-taco-detail.jpg',
     ingredients: {
       ko: '신선한 생선, 양배추, 토마토, 라임, 특제 소스, 또르띠야',
       en: 'Fresh fish, cabbage, tomato, lime, special sauce, tortilla'
@@ -392,7 +395,7 @@ export default function MenuDemoPage() {
             ))}
           </div>
 
-          {/* 상세 정보 모달 - 전체 화면 쇼핑몰 스타일 */}
+          {/* 상세 정보 모달 */}
           {selectedItem && (
             <div className="fixed inset-0 bg-[#ede7d9] z-50 overflow-y-auto">
               {/* 상단 네비게이션 바 */}
@@ -419,10 +422,11 @@ export default function MenuDemoPage() {
               {/* 메인 컨텐츠 */}
               <div className="max-w-5xl mx-auto pb-8">
                 {/* 이미지/영상 섹션 */}
-                <div className="relative w-full bg-black" style={{ height: '70vh', maxHeight: '700px' }}>
+                <div className="relative w-full bg-[#ede7d9] flex items-center justify-center" style={{ minHeight: '400px' }}>
                   {selectedItem.video ? (
                     <video
-                      className="w-full h-full object-contain"
+                      className="w-full h-auto"
+                      style={{ maxHeight: '80vh' }}
                       autoPlay
                       loop
                       muted
@@ -432,12 +436,15 @@ export default function MenuDemoPage() {
                       <source src={selectedItem.video} type="video/mp4" />
                     </video>
                   ) : (
-                    <Image
-                      src={selectedItem.image!}
-                      alt={selectedItem.name[language]}
-                      fill
-                      className="object-contain"
-                    />
+                    <div className="relative w-full flex justify-center">
+                      <Image
+                        src={selectedItem.image!}
+                        alt={selectedItem.name[language]}
+                        width={860}
+                        height={0}
+                        style={{ height: 'auto', width: 'auto', maxWidth: '100%', maxHeight: '80vh' }}
+                      />
+                    </div>
                   )}
                   {selectedItem.isBest && (
                     <div className="absolute top-6 left-6 bg-[#f77f02] text-white px-6 py-3 text-lg font-black uppercase tracking-wider shadow-2xl">
@@ -568,6 +575,25 @@ export default function MenuDemoPage() {
                             </span>
                           ))}
                         </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 상세 이미지 */}
+                  {selectedItem.detailImage && (
+                    <div className="mb-8">
+                      <h3 className="text-2xl font-black text-[#00512e] uppercase mb-4 tracking-wider flex items-center gap-2">
+                        <span>🍴</span> {language === 'ko' ? '상세 정보' : 'Detail Information'}
+                      </h3>
+                      <div className="bg-[#ede7d9] p-4 rounded-lg">
+                        <Image
+                          src={selectedItem.detailImage}
+                          alt={`${selectedItem.name[language]} detail`}
+                          width={860}
+                          height={0}
+                          style={{ height: 'auto', width: '100%' }}
+                          className="rounded-lg"
+                        />
                       </div>
                     </div>
                   )}
