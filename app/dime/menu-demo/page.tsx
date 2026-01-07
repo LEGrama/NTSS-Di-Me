@@ -13,6 +13,22 @@ interface MenuItem {
   video?: string;
   category: { ko: string; en: string };
   spicyLevel: number; // 0: 안맵게, 1: 순한맛, 2: 보통, 3: 매운맛, 4: 아주매운맛
+  isBest?: boolean;
+  // 상세 페이지용 추가 정보
+  ingredients?: { ko: string; en: string };
+  nutrition?: {
+    calories: number;
+    protein: string;
+    fat: string;
+    carbs: string;
+  };
+  allergens?: { ko: string; en: string };
+  pairing?: { ko: string[]; en: string[] };
+  reviews?: {
+    rating: number;
+    text: { ko: string; en: string };
+    author: { ko: string; en: string };
+  }[];
 }
 
 const menuItems: MenuItem[] = [
@@ -26,6 +42,43 @@ const menuItems: MenuItem[] = [
     image: '/menu/fish-taco.jpg',
     category: { ko: '타코', en: 'Tacos' },
     spicyLevel: 1,
+    isBest: true,
+    ingredients: {
+      ko: '신선한 생선, 양배추, 토마토, 라임, 특제 소스, 또르띠야',
+      en: 'Fresh fish, cabbage, tomato, lime, special sauce, tortilla'
+    },
+    nutrition: {
+      calories: 320,
+      protein: '25g',
+      fat: '12g',
+      carbs: '35g'
+    },
+    allergens: {
+      ko: '이 제품은 밀, 생선, 유제품을 포함하고 있습니다.',
+      en: 'Contains: Wheat, Fish, Dairy'
+    },
+    pairing: {
+      ko: ['과카몰리 칩스', '마르가리타'],
+      en: ['Guacamole & Chips', 'Margarita']
+    },
+    reviews: [
+      {
+        rating: 5,
+        text: {
+          ko: '정말 신선하고 맛있어요! 생선이 부드럽고 소스가 환상적입니다.',
+          en: 'Super fresh and delicious! The fish is tender and the sauce is amazing.'
+        },
+        author: { ko: '김민수', en: 'John D.' }
+      },
+      {
+        rating: 5,
+        text: {
+          ko: '이집 시그니처 메뉴! 매번 주문합니다. 강추!',
+          en: 'This is their signature dish! I order it every time. Highly recommend!'
+        },
+        author: { ko: '박지영', en: 'Sarah K.' }
+      }
+    ]
   },
   {
     id: 2,
@@ -176,15 +229,7 @@ export default function MenuDemoPage() {
   const t = translations[language];
 
   return (
-    <main className="min-h-screen bg-[#D2691E]" style={{
-      backgroundImage: `repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 35px,
-        rgba(0,0,0,.03) 35px,
-        rgba(0,0,0,.03) 70px
-      )`
-    }}>
+    <main className="min-h-screen bg-[#ede7d9]" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
       {/* 홈 아이콘 */}
       <Link
         href="/"
@@ -219,14 +264,14 @@ export default function MenuDemoPage() {
           <div className="flex justify-between items-center mb-8">
             <Link
               href="/dime"
-              className="inline-block text-orange-100 hover:text-white transition font-bold"
+              className="inline-block text-[#00512e] hover:text-[#00512e]/80 transition font-bold"
             >
               {t.backButton}
             </Link>
 
             <button
               onClick={() => setLanguage(language === 'ko' ? 'en' : 'ko')}
-              className="bg-[#FFD700] hover:bg-[#FFA500] text-[#8B4513] font-bold px-4 py-2 transition-all duration-200 flex items-center gap-2"
+              className="bg-[#f77f02] hover:bg-[#f77f02]/90 text-white font-bold px-4 py-2 transition-all duration-200 flex items-center gap-2"
             >
               <span className="text-lg">{language === 'ko' ? '🇺🇸' : '🇰🇷'}</span>
               {language === 'ko' ? 'English' : '한국어'}
@@ -234,29 +279,23 @@ export default function MenuDemoPage() {
           </div>
 
           {/* 멕시칸 전통 장식 헤더 */}
-          <div className="bg-[#8B4513] border-4 border-[#D2691E] p-8 mb-12 relative overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-[#228B22] via-white to-[#DC143C]"></div>
-            <div className="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-r from-[#228B22] via-white to-[#DC143C]"></div>
-
+          <div className="bg-[#00512e] border-8 border-[#f77f02] p-12 mb-12 relative overflow-hidden">
             <header className="text-center relative">
-              <div className="flex justify-center gap-3 mb-4">
-                <span className="text-4xl">🌮</span>
-                <h1 className="text-4xl md:text-5xl font-black text-[#FFD700] mb-2 tracking-tight" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
+              <div className="flex justify-center gap-4 mb-4">
+                <span className="text-5xl">🌮</span>
+                <h1 className="text-5xl md:text-6xl font-black text-[#f77f02] mb-2 tracking-wider uppercase" style={{ textShadow: '3px 3px 0px #d62829', letterSpacing: '0.05em' }}>
                   {t.title}
                 </h1>
-                <span className="text-4xl">🌶️</span>
+                <span className="text-5xl">🌶️</span>
               </div>
-              <p className="text-orange-200 text-base font-semibold">
+              <p className="text-[#ede7d9] text-xl font-bold uppercase tracking-widest">
                 {t.subtitle}
               </p>
             </header>
           </div>
 
           {/* 홍보 영상 섹션 */}
-          <div className="mb-12 border-4 border-[#D2691E] bg-black relative overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-[#228B22] via-white to-[#DC143C] z-10"></div>
-            <div className="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-r from-[#228B22] via-white to-[#DC143C] z-10"></div>
-
+          <div className="mb-12 border-8 border-[#f77f02] bg-black relative overflow-hidden">
             <div className="relative w-full" style={{ aspectRatio: '16/9' }}>
               <video
                 className="w-full h-full object-cover"
@@ -273,7 +312,7 @@ export default function MenuDemoPage() {
           </div>
 
           {/* 카테고리 필터 */}
-          <div className="flex flex-wrap gap-3 justify-center mb-12">
+          <div className="flex flex-wrap gap-4 justify-center mb-12">
             {categories.map((category, index) => {
               const categoryNames = {
                 ko: ['전체', '타코', '퀘사디아', '사이드'],
@@ -285,13 +324,13 @@ export default function MenuDemoPage() {
                 <button
                   key={category.name}
                   onClick={() => setSelectedCategory(category.name)}
-                  className={`px-8 py-3 text-base font-bold border-3 transition-all duration-200 ${
+                  className={`px-8 py-3 text-lg font-black border-4 transition-all duration-200 uppercase tracking-wider ${
                     selectedCategory === category.name
-                      ? 'bg-[#DC143C] text-white border-[#8B0000] shadow-lg scale-105'
-                      : 'bg-[#FFD700] text-[#8B4513] border-[#DAA520] hover:bg-[#FFA500]'
+                      ? 'bg-[#d62829] text-white border-[#00512e] shadow-lg scale-105'
+                      : 'bg-[#f77f02] text-white border-[#00512e] hover:bg-[#d62829]'
                   }`}
                 >
-                  <span className="text-xl mr-2">{category.icon}</span>
+                  <span className="text-2xl mr-2">{category.icon}</span>
                   {displayName}
                 </button>
               );
@@ -304,12 +343,17 @@ export default function MenuDemoPage() {
               <div
                 key={item.id}
                 onClick={() => setSelectedItem(item)}
-                className="bg-[#FFF8DC] border-4 border-[#D2691E] cursor-pointer hover:border-[#DC143C] hover:shadow-2xl transition-all duration-300 group relative overflow-hidden"
+                className="bg-white border-6 border-[#00512e] cursor-pointer hover:border-[#f77f02] hover:shadow-2xl transition-all duration-300 group relative overflow-hidden"
               >
-                <div className="absolute top-2 right-2 bg-[#DC143C] text-white px-3 py-1 text-xs font-bold uppercase z-10">
+                <div className="absolute top-3 right-3 bg-[#d62829] text-white px-4 py-2 text-sm font-black uppercase z-10 tracking-wider">
                   {item.category[language]}
                 </div>
-                <div className="relative w-full h-56 overflow-hidden border-b-4 border-[#D2691E]">
+                {item.isBest && (
+                  <div className="absolute top-3 left-3 bg-[#f77f02] text-white px-4 py-2 text-sm font-black uppercase z-10 tracking-wider">
+                    BEST
+                  </div>
+                )}
+                <div className="relative w-full h-56 overflow-hidden border-b-6 border-[#00512e]">
                   {item.video ? (
                     <video
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
@@ -330,48 +374,55 @@ export default function MenuDemoPage() {
                     />
                   )}
                 </div>
-                <div className="p-6 bg-[#FFF8DC]">
+                <div className="p-6 bg-white">
                   <div className="flex justify-between items-start mb-3">
-                    <h3 className="text-2xl font-black text-[#8B4513] tracking-tight">
+                    <h3 className="text-3xl font-black text-[#00512e] tracking-tight uppercase">
                       {item.name[language]}
                     </h3>
                     {item.spicyLevel > 0 && <SpicyLevel level={item.spicyLevel} />}
                   </div>
-                  <p className="text-[#8B4513] text-sm mb-4 leading-relaxed font-medium">{item.description[language]}</p>
-                  <div className="flex justify-between items-center pt-4 border-t-2 border-[#D2691E]">
-                    <span className="text-2xl font-black text-[#DC143C]">
+                  <p className="text-[#00512e] text-base mb-4 leading-relaxed font-semibold">{item.description[language]}</p>
+                  <div className="flex justify-between items-center pt-4 border-t-4 border-[#ede7d9]">
+                    <span className="text-3xl font-black text-[#d62829]">
                       ₩{item.price}
                     </span>
-                    <span className="text-[#FFD700] text-2xl">★</span>
                   </div>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* 상세 정보 모달 */}
+          {/* 상세 정보 모달 - 전체 화면 쇼핑몰 스타일 */}
           {selectedItem && (
-            <div
-              className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4 backdrop-blur-sm"
-              onClick={() => setSelectedItem(null)}
-            >
-              <div
-                className="bg-[#FFF8DC] border-8 border-[#D2691E] max-w-lg w-full relative shadow-2xl overflow-hidden"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <div className="absolute top-0 left-0 right-0 h-4 bg-gradient-to-r from-[#228B22] via-white to-[#DC143C]"></div>
-                <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-r from-[#228B22] via-white to-[#DC143C]"></div>
-
+            <div className="fixed inset-0 bg-[#ede7d9] z-50 overflow-y-auto">
+              {/* 상단 네비게이션 바 */}
+              <div className="sticky top-0 z-10 bg-[#00512e] border-b-6 border-[#f77f02] px-6 py-4 flex justify-between items-center shadow-xl">
                 <button
                   onClick={() => setSelectedItem(null)}
-                  className="absolute top-6 right-6 bg-[#DC143C] hover:bg-[#8B0000] w-12 h-12 flex items-center justify-center text-white text-3xl font-black transition z-10 shadow-lg"
+                  className="text-white hover:text-[#f77f02] transition"
+                >
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <h3 className="text-2xl font-black text-[#f77f02] uppercase tracking-wider">
+                  {language === 'ko' ? '메뉴 상세' : 'Menu Detail'}
+                </h3>
+                <button
+                  onClick={() => setSelectedItem(null)}
+                  className="bg-[#d62829] hover:bg-[#d62829]/90 w-10 h-10 flex items-center justify-center text-white text-3xl font-black transition rounded-full"
                 >
                   ×
                 </button>
-                <div className="relative w-full h-80 border-b-4 border-[#D2691E] mt-4">
+              </div>
+
+              {/* 메인 컨텐츠 */}
+              <div className="max-w-5xl mx-auto pb-8">
+                {/* 이미지/영상 섹션 */}
+                <div className="relative w-full bg-black" style={{ height: '70vh', maxHeight: '700px' }}>
                   {selectedItem.video ? (
                     <video
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                       autoPlay
                       loop
                       muted
@@ -385,39 +436,176 @@ export default function MenuDemoPage() {
                       src={selectedItem.image!}
                       alt={selectedItem.name[language]}
                       fill
-                      className="object-cover"
+                      className="object-contain"
                     />
                   )}
+                  {selectedItem.isBest && (
+                    <div className="absolute top-6 left-6 bg-[#f77f02] text-white px-6 py-3 text-lg font-black uppercase tracking-wider shadow-2xl">
+                      ⭐ BEST
+                    </div>
+                  )}
                 </div>
-                <div className="p-8">
-                  <div className="flex justify-between items-start mb-4">
-                    <h2 className="text-3xl font-black text-[#8B4513] tracking-tight">
-                      {selectedItem.name[language]}
-                    </h2>
-                    {selectedItem.spicyLevel > 0 && (
-                      <div className="flex flex-col items-end">
-                        <SpicyLevel level={selectedItem.spicyLevel} />
-                        <span className="text-xs text-[#DC143C] mt-1 font-bold">
-                          {t.spicyLevels[selectedItem.spicyLevel - 1]}
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                  <p className="text-[#8B4513] mb-6 leading-relaxed font-medium">
-                    {selectedItem.description[language]}
-                  </p>
-                  <div className="flex justify-between items-center pt-6 border-t-4 border-[#D2691E]">
-                    <span className="text-sm text-[#8B4513] font-bold uppercase tracking-wider bg-[#FFD700] px-4 py-2">
+
+                {/* 상품 정보 카드 */}
+                <div className="bg-white border-8 border-[#00512e] mx-4 mt-6 p-8 shadow-2xl">
+                  {/* 상단: 카테고리와 이름 */}
+                  <div className="mb-6">
+                    <div className="inline-block bg-[#f77f02] text-white px-5 py-2 text-base font-black uppercase tracking-wider mb-4 shadow-md">
                       {selectedItem.category[language]}
-                    </span>
-                    <span className="text-3xl font-black text-[#DC143C]">
-                      ₩{selectedItem.price}
-                    </span>
+                    </div>
+                    <div className="flex justify-between items-start">
+                      <h2 className="text-5xl md:text-6xl font-black text-[#00512e] tracking-tight uppercase flex-1">
+                        {selectedItem.name[language]}
+                      </h2>
+                      {selectedItem.spicyLevel > 0 && (
+                        <div className="flex flex-col items-end bg-[#ede7d9] px-5 py-3 rounded-lg ml-4">
+                          <SpicyLevel level={selectedItem.spicyLevel} />
+                          <span className="text-sm text-[#d62829] mt-2 font-black uppercase tracking-wider">
+                            {t.spicyLevels[selectedItem.spicyLevel - 1]}
+                          </span>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                  <div className="mt-6 p-4 bg-[#DC143C] text-center">
-                    <p className="text-sm text-white font-bold">
-                      {t.demoNote}
+
+                  {/* 가격 */}
+                  <div className="mb-8 pb-8 border-b-4 border-[#ede7d9]">
+                    <div className="flex items-baseline gap-3">
+                      <span className="text-6xl font-black text-[#d62829]">₩{selectedItem.price}</span>
+                      <span className="text-2xl text-[#00512e] font-bold">{language === 'ko' ? '원' : 'KRW'}</span>
+                    </div>
+                  </div>
+
+                  {/* 설명 */}
+                  <div className="mb-8">
+                    <h3 className="text-2xl font-black text-[#00512e] uppercase mb-4 tracking-wider flex items-center gap-2">
+                      <span>📝</span> {language === 'ko' ? '상세 설명' : 'Description'}
+                    </h3>
+                    <p className="text-[#00512e] leading-relaxed font-semibold text-xl bg-[#ede7d9] p-6 rounded-lg">
+                      {selectedItem.description[language]}
                     </p>
+                  </div>
+
+                  {/* 재료 정보 */}
+                  {selectedItem.ingredients && (
+                    <div className="mb-8">
+                      <h3 className="text-2xl font-black text-[#00512e] uppercase mb-4 tracking-wider flex items-center gap-2">
+                        <span>🥬</span> {language === 'ko' ? '재료 정보' : 'Ingredients'}
+                      </h3>
+                      <div className="bg-[#ede7d9] p-6 rounded-lg">
+                        <p className="text-[#00512e] font-semibold text-lg leading-relaxed">
+                          {selectedItem.ingredients[language]}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 영양 정보 */}
+                  {selectedItem.nutrition && (
+                    <div className="mb-8">
+                      <h3 className="text-2xl font-black text-[#00512e] uppercase mb-4 tracking-wider flex items-center gap-2">
+                        <span>💪</span> {language === 'ko' ? '영양 정보' : 'Nutrition Facts'}
+                      </h3>
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div className="bg-[#ede7d9] p-4 rounded-lg text-center border-4 border-[#00512e]">
+                          <div className="text-3xl font-black text-[#d62829]">{selectedItem.nutrition.calories}</div>
+                          <div className="text-sm font-black text-[#00512e] uppercase mt-1">
+                            {language === 'ko' ? '칼로리' : 'Calories'}
+                          </div>
+                        </div>
+                        <div className="bg-[#ede7d9] p-4 rounded-lg text-center border-4 border-[#00512e]">
+                          <div className="text-3xl font-black text-[#d62829]">{selectedItem.nutrition.protein}</div>
+                          <div className="text-sm font-black text-[#00512e] uppercase mt-1">
+                            {language === 'ko' ? '단백질' : 'Protein'}
+                          </div>
+                        </div>
+                        <div className="bg-[#ede7d9] p-4 rounded-lg text-center border-4 border-[#00512e]">
+                          <div className="text-3xl font-black text-[#d62829]">{selectedItem.nutrition.fat}</div>
+                          <div className="text-sm font-black text-[#00512e] uppercase mt-1">
+                            {language === 'ko' ? '지방' : 'Fat'}
+                          </div>
+                        </div>
+                        <div className="bg-[#ede7d9] p-4 rounded-lg text-center border-4 border-[#00512e]">
+                          <div className="text-3xl font-black text-[#d62829]">{selectedItem.nutrition.carbs}</div>
+                          <div className="text-sm font-black text-[#00512e] uppercase mt-1">
+                            {language === 'ko' ? '탄수화물' : 'Carbs'}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 알레르기 정보 */}
+                  {selectedItem.allergens && (
+                    <div className="mb-8">
+                      <h3 className="text-2xl font-black text-[#00512e] uppercase mb-4 tracking-wider flex items-center gap-2">
+                        <span>⚠️</span> {language === 'ko' ? '알레르기 정보' : 'Allergen Info'}
+                      </h3>
+                      <div className="bg-[#f77f02] p-5 rounded-lg">
+                        <p className="text-white font-bold text-lg">
+                          {selectedItem.allergens[language]}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 추천 조합 */}
+                  {selectedItem.pairing && (
+                    <div className="mb-8">
+                      <h3 className="text-2xl font-black text-[#00512e] uppercase mb-4 tracking-wider flex items-center gap-2">
+                        <span>🤝</span> {language === 'ko' ? '추천 조합' : 'Perfect Pairing'}
+                      </h3>
+                      <div className="bg-[#ede7d9] p-6 rounded-lg border-4 border-[#00512e]">
+                        <p className="text-[#00512e] font-bold text-lg mb-3">
+                          {language === 'ko'
+                            ? '이 메뉴와 함께 즐기면 더 맛있어요!'
+                            : 'Goes great with:'}
+                        </p>
+                        <div className="flex flex-wrap gap-3">
+                          {selectedItem.pairing[language].map((item, index) => (
+                            <span key={index} className="bg-white px-4 py-2 text-[#00512e] font-black rounded-full border-3 border-[#f77f02]">
+                              {index === 0 ? '🍟' : '🥤'} {item}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 고객 리뷰 */}
+                  {selectedItem.reviews && selectedItem.reviews.length > 0 && (
+                    <div className="mb-8">
+                      <h3 className="text-2xl font-black text-[#00512e] uppercase mb-4 tracking-wider flex items-center gap-2">
+                        <span>⭐</span> {language === 'ko' ? '고객 리뷰' : 'Customer Reviews'}
+                      </h3>
+                      <div className="space-y-4">
+                        {selectedItem.reviews.map((review, index) => (
+                          <div key={index} className="bg-[#ede7d9] p-6 rounded-lg border-4 border-[#00512e]">
+                            <div className="flex items-center gap-2 mb-3">
+                              <div className="flex">
+                                {'⭐'.repeat(review.rating)}
+                              </div>
+                              <span className="font-black text-[#00512e]">{review.rating}.0</span>
+                            </div>
+                            <p className="text-[#00512e] font-semibold text-lg mb-2">
+                              "{review.text[language]}"
+                            </p>
+                            <p className="text-[#00512e] text-sm font-bold">
+                              - {review.author[language]}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 데모 안내 */}
+                  <div className="border-t-4 border-[#ede7d9] pt-6">
+                    <div className="bg-[#00512e] p-6 rounded-lg text-center">
+                      <p className="text-[#ede7d9] font-bold text-lg leading-relaxed">
+                        {t.demoNote}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -425,19 +613,16 @@ export default function MenuDemoPage() {
           )}
 
           {/* 안내 문구 */}
-          <div className="mt-16 text-center bg-[#8B4513] border-4 border-[#D2691E] p-12 max-w-2xl mx-auto relative overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-[#228B22] via-white to-[#DC143C]"></div>
-            <div className="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-r from-[#228B22] via-white to-[#DC143C]"></div>
-
-            <h3 className="text-3xl font-black text-[#FFD700] mb-6 tracking-tight" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
+          <div className="mt-16 text-center bg-[#00512e] border-8 border-[#f77f02] p-12 max-w-2xl mx-auto relative overflow-hidden">
+            <h3 className="text-4xl font-black text-[#f77f02] mb-6 tracking-wider uppercase" style={{ textShadow: '3px 3px 0px #d62829', letterSpacing: '0.05em' }}>
               {t.ctaTitle}
             </h3>
-            <p className="text-orange-100 mb-8 leading-relaxed text-lg font-semibold">
+            <p className="text-[#ede7d9] mb-8 leading-relaxed text-xl font-bold">
               {t.ctaDescription}
             </p>
             <Link
               href="/dime"
-              className="inline-block bg-[#DC143C] hover:bg-[#8B0000] text-white text-lg font-black py-4 px-10 tracking-wider transition-all duration-200 uppercase shadow-lg hover:scale-105"
+              className="inline-block bg-[#d62829] hover:bg-[#d62829]/90 text-white text-xl font-black py-5 px-12 tracking-widest transition-all duration-200 uppercase shadow-lg hover:scale-105"
             >
               {t.ctaButton}
             </Link>
