@@ -9,7 +9,8 @@ interface MenuItem {
   name: { ko: string; en: string };
   description: { ko: string; en: string };
   price: string;
-  image: string;
+  image?: string;
+  video?: string;
   category: { ko: string; en: string };
   spicyLevel: number; // 0: 안맵게, 1: 순한맛, 2: 보통, 3: 매운맛, 4: 아주매운맛
 }
@@ -21,6 +22,7 @@ const menuItems: MenuItem[] = [
     name: { ko: '피쉬 타코', en: 'Fish Taco' },
     description: { ko: '신선한 생선과 특제 소스가 어우러진 타코', en: 'Fresh fish with special sauce in a soft tortilla' },
     price: '12,000',
+    video: '/menu/fish-taco.mp4',
     image: '/menu/fish-taco.jpg',
     category: { ko: '타코', en: 'Tacos' },
     spicyLevel: 1,
@@ -308,12 +310,25 @@ export default function MenuDemoPage() {
                   {item.category[language]}
                 </div>
                 <div className="relative w-full h-56 overflow-hidden border-b-4 border-[#D2691E]">
-                  <Image
-                    src={item.image}
-                    alt={item.name[language]}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
+                  {item.video ? (
+                    <video
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      poster={item.image}
+                    >
+                      <source src={item.video} type="video/mp4" />
+                    </video>
+                  ) : (
+                    <Image
+                      src={item.image!}
+                      alt={item.name[language]}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                  )}
                 </div>
                 <div className="p-6 bg-[#FFF8DC]">
                   <div className="flex justify-between items-start mb-3">
@@ -354,12 +369,25 @@ export default function MenuDemoPage() {
                   ×
                 </button>
                 <div className="relative w-full h-80 border-b-4 border-[#D2691E] mt-4">
-                  <Image
-                    src={selectedItem.image}
-                    alt={selectedItem.name[language]}
-                    fill
-                    className="object-cover"
-                  />
+                  {selectedItem.video ? (
+                    <video
+                      className="w-full h-full object-cover"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      poster={selectedItem.image}
+                    >
+                      <source src={selectedItem.video} type="video/mp4" />
+                    </video>
+                  ) : (
+                    <Image
+                      src={selectedItem.image!}
+                      alt={selectedItem.name[language]}
+                      fill
+                      className="object-cover"
+                    />
+                  )}
                 </div>
                 <div className="p-8">
                   <div className="flex justify-between items-start mb-4">
