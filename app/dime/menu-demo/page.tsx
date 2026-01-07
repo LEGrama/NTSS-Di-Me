@@ -500,15 +500,11 @@ export default function MenuDemoPage() {
                         <span>🍴</span> {language === 'ko' ? '상세 정보' : 'Detail Information'}
                       </h3>
                       <div className="bg-[#ede7d9] p-4 rounded-lg">
-                        <Image
+                        <img
                           src={selectedItem.detailImage}
                           alt={`${selectedItem.name[language]} detail`}
-                          width={860}
-                          height={0}
-                          style={{ height: 'auto', width: '100%' }}
-                          className="rounded-lg"
-                          unoptimized
-                          priority
+                          className="rounded-lg w-full h-auto"
+                          style={{ maxWidth: '100%', height: 'auto' }}
                         />
                       </div>
                     </div>
