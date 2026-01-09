@@ -1,8 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
+import { CartProvider, useCart } from '@/contexts/CartContext';
+import CartBar from '@/components/CartBar';
+import CartModal from '@/components/CartModal';
 
 interface MenuItem {
   id: number;
@@ -156,10 +160,14 @@ const SpicyLevel = ({ level }: { level: number }) => {
   return <div className="flex gap-0.5">{peppers}</div>;
 };
 
-export default function MenuDemoPage() {
+function MenuDemoContent() {
   const [selectedCategory, setSelectedCategory] = useState('전체');
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
   const [language, setLanguage] = useState<'ko' | 'en'>('ko');
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const searchParams = useSearchParams();
+  const tableNumber = searchParams.get('table');
+  const { addToCart } = useCart();
 
   const filteredItems =
     selectedCategory === '전체'
@@ -331,8 +339,7 @@ export default function MenuDemoPage() {
             {filteredItems.map((item) => (
               <div
                 key={item.id}
-                onClick={() => setSelectedItem(item)}
-                className="bg-white border-6 border-[#00512e] cursor-pointer hover:border-[#f77f02] hover:shadow-2xl transition-all duration-300 group relative overflow-hidden"
+                className="bg-white border-6 border-[#00512e] hover:border-[#f77f02] hover:shadow-2xl transition-all duration-300 group relative overflow-hidden"
               >
                 <div className="absolute top-3 right-3 bg-[#d62829] text-white px-4 py-2 text-sm font-black uppercase z-10 tracking-wider">
                   {item.category[language]}
@@ -342,7 +349,10 @@ export default function MenuDemoPage() {
                     BEST
                   </div>
                 )}
-                <div className="relative w-full h-56 overflow-hidden border-b-6 border-[#00512e]">
+                <div
+                  className="relative w-full h-56 overflow-hidden border-b-6 border-[#00512e] cursor-pointer"
+                  onClick={() => setSelectedItem(item)}
+                >
                   {item.video ? (
                     <video
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
@@ -375,6 +385,20 @@ export default function MenuDemoPage() {
                     <span className="text-3xl font-black text-[#d62829]">
                       ₩{item.price}
                     </span>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        addToCart({
+                          id: item.id,
+                          name: item.name,
+                          price: item.price,
+                          image: item.image
+                        });
+                      }}
+                      className="bg-[#f77f02] hover:bg-[#f77f02]/90 text-white px-6 py-2 font-black uppercase tracking-wider transition-all"
+                    >
+                      {language === 'ko' ? '담기' : 'Add'}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -383,26 +407,30 @@ export default function MenuDemoPage() {
 
           {/* 상세 정보 모달 */}
           {selectedItem && (
-            <div
-              className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
-              onClick={() => setSelectedItem(null)}
-            >
-              <div
-                className="bg-[#ede7d9] rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto relative"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {/* X 닫기 버튼 */}
+            <div className="fixed inset-0 bg-[#ede7d9] z-50 overflow-y-auto">
+              {/* 상단 네비게이션 바 */}
+              <div className="sticky top-0 z-10 bg-[#00512e] border-b-6 border-[#f77f02] px-6 py-4 flex justify-between items-center shadow-xl">
                 <button
                   onClick={() => setSelectedItem(null)}
-                  className="absolute top-4 right-4 z-20 bg-[#d62829] hover:bg-[#d62829]/90 w-12 h-12 flex items-center justify-center text-white rounded-full shadow-xl transition-all"
+                  className="text-white hover:text-[#f77f02] transition"
                 >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
                   </svg>
                 </button>
+                <h3 className="text-2xl font-black text-[#f77f02] uppercase tracking-wider">
+                  {language === 'ko' ? '메뉴 상세' : 'Menu Detail'}
+                </h3>
+                <button
+                  onClick={() => setSelectedItem(null)}
+                  className="bg-[#d62829] hover:bg-[#d62829]/90 w-10 h-10 flex items-center justify-center text-white text-3xl font-black transition rounded-full"
+                >
+                  ×
+                </button>
+              </div>
 
-                {/* 메인 컨텐츠 */}
-                <div className="pb-12 px-4 pt-8">
+              {/* 메인 컨텐츠 */}
+              <div className="max-w-4xl mx-auto pb-12 px-4">
                 {/* 이미지/영상 섹션 */}
                 <div className="relative w-full flex items-center justify-center mb-8">
                   {selectedItem.video ? (
@@ -497,7 +525,6 @@ export default function MenuDemoPage() {
                 </div>
               </div>
             </div>
-            </div>
           )}
 
           {/* 안내 문구 */}
@@ -518,6 +545,26 @@ export default function MenuDemoPage() {
         </div>
       </div>
       </div>
+
+      {/* 장바구니 하단 바 */}
+      <CartBar onClick={() => setIsCartOpen(true)} language={language} />
+
+      {/* 장바구니 모달 */}
+      <CartModal
+        isOpen={isCartOpen}
+        onClose={() => setIsCartOpen(false)}
+        tableNumber={tableNumber}
+        language={language}
+      />
     </main>
+  );
+}
+
+// Provider로 감싸진 메인 컴포넌트
+export default function MenuDemoPage() {
+  return (
+    <CartProvider>
+      <MenuDemoContent />
+    </CartProvider>
   );
 }

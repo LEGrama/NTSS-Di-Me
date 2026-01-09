@@ -54,14 +54,17 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="bg-[#a60202] p-10 hover:bg-[#8a0101] transition-colors">
+          <Link
+            href="/dime/order-demo"
+            className="bg-[#a60202] p-10 hover:bg-[#8a0101] transition-colors block cursor-pointer"
+          >
             <h3 className="text-2xl font-bold mb-4 text-white tracking-tight">
               디지털 메뉴판
             </h3>
             <p className="text-white/80 font-medium leading-relaxed">
               태블릿이나 모바일에서 보기 좋은 인터랙티브 메뉴판 제작
             </p>
-          </div>
+          </Link>
 
           <div className="bg-[#a60202] p-10 hover:bg-[#8a0101] transition-colors">
             <h3 className="text-2xl font-bold mb-4 text-white tracking-tight">브랜딩</h3>
@@ -83,12 +86,12 @@ export default function Home() {
 
           <div className="mt-10 text-center">
             {/* 메뉴판 데모 버튼 - 강조 */}
-            <div className="mb-6">
+            <div className="mb-6 flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/dime/menu-demo"
                 className="inline-block border-2 border-white text-white hover:bg-white hover:text-[#a60202] font-bold px-8 py-3 transition-all duration-200 tracking-wide text-base"
               >
-                디지털 메뉴판 데모 보기 →
+                디지털 메뉴판 데모
               </Link>
             </div>
 
