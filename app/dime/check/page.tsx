@@ -86,10 +86,10 @@ export default function CheckPage() {
 
           <header className="text-center mb-16">
             <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 tracking-tight">
-              대기번호 조회
+              대기상태 조회
             </h1>
             <p className="text-white/80 font-medium">
-              등록하신 이메일을 입력하시면 대기번호를 확인하실 수 있습니다
+              등록하신 이메일을 입력하시면 대기상태를 확인하실 수 있습니다
             </p>
           </header>
 
@@ -119,7 +119,7 @@ export default function CheckPage() {
                 disabled={isLoading}
                 className="w-full bg-white hover:bg-gray-100 hover:scale-105 hover:shadow-lg text-[#a60202] font-bold text-lg py-4 px-6 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none mt-8 tracking-wide"
               >
-                {isLoading ? '조회 중...' : '대기번호 조회하기'}
+                {isLoading ? '조회 중...' : '대기상태 조회하기'}
               </button>
             </form>
 
