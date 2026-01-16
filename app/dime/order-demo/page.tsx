@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
@@ -564,7 +564,9 @@ function MenuDemoContent() {
 export default function MenuDemoPage() {
   return (
     <CartProvider>
-      <MenuDemoContent />
+      <Suspense fallback={<div>Loading...</div>}>
+        <MenuDemoContent />
+      </Suspense>
     </CartProvider>
   );
 }
