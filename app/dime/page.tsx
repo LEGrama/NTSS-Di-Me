@@ -108,7 +108,7 @@ export default function Home() {
                 href="/dime/check"
                 className="inline-block text-white hover:underline font-medium"
               >
-                내 대기번호 확인하기 →
+                대기상태 조회하기 →
               </Link>
             </div>
           </div>
