@@ -85,14 +85,14 @@ export default function Home() {
           <WaitlistForm />
 
           <div className="mt-10 text-center">
-            {/* 메뉴판 데모 버튼 - 강조 */}
+            {/* 메뉴판 데모 버튼 - 비활성화 */}
             <div className="mb-6 flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/dime/menu-demo"
-                className="inline-block border-2 border-white text-white hover:bg-white hover:text-[#a60202] font-bold px-8 py-3 transition-all duration-200 tracking-wide text-base"
+              <button
+                disabled
+                className="inline-block border-2 border-white/30 text-white/30 font-bold px-8 py-3 tracking-wide text-base cursor-not-allowed opacity-50"
               >
-                디지털 메뉴판 데모
-              </Link>
+                🔒 디지털 메뉴판 데모 (준비중)
+              </button>
             </div>
 
             {/* 기타 링크들 */}
