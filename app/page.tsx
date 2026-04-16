@@ -142,9 +142,6 @@ export default function Home() {
               @ntsslab
             </a>
           </div>
-          <div className="mb-2">
-            <p>상호명: 리디데아 | 사업자등록번호: 880-54-00957</p>
-          </div>
           <p>&copy; 2025 NTSS</p>
         </footer>
       </div>
